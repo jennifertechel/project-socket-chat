@@ -1,6 +1,6 @@
-import { createTheme, Theme } from "@chakra-ui/react";
+import { extendTheme } from "@chakra-ui/react";
 
-export let theme: Theme = createTheme({
+const theme = extendTheme({
   breakpoints: {
     xs: 0,
     sm: 600,
