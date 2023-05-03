@@ -1,10 +1,25 @@
-import { Box, Button, Flex, Image, Input, Text } from "@chakra-ui/react";
-
+import {
+  Box,
+  Button,
+  Flex,
+  Image,
+  Input,
+  Text,
+  useBreakpointValue,
+} from "@chakra-ui/react";
+// responsivitet i theme?
 function StartPage() {
+  const boxSize = useBreakpointValue({
+    base: "sm",
+    md: "md",
+    lg: "lg",
+    xl: "2xl",
+  });
   return (
-    <Flex>
+    <Flex justifyContent="center" alignItems="center">
       <Box
-        boxSize="sm"
+        boxSize={boxSize}
+        mt="100px"
         display="flex"
         flexDirection="column"
         justifyContent="center"
@@ -12,8 +27,13 @@ function StartPage() {
       >
         <Image src="src/assets/CHATROPOLIS.svg" />
         <Image src="src/assets/logoWithStamp.png" />
-        <Text>Enter nickname</Text>
-        <Input placeholder="Nickname" variant="flushed" width="auto"></Input>
+        <Text m="30px">Enter nickname</Text>
+        <Input
+          placeholder="Nickname"
+          variant="flushed"
+          width="auto"
+          textAlign="center"
+        ></Input>
         <Button>Let's Chat!</Button>
       </Box>
     </Flex>
