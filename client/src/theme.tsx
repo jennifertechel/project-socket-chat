@@ -26,20 +26,20 @@ const theme = extendTheme({
   },
 
   fonts: {
-    heading: "Love ya like a sister",
+    heading: "Love Ya Like A Sister",
     body: "Montserrat",
   },
 
   typography: {
     h1: {
-      fontSize: "3.5rem",
-      color: "#CA368F",
+      fontSize: "5rem",
+      color: "brand.700",
       fontFamily: "heading",
     },
     h2: {
       fontSize: "2rem",
       color: "#6B6262",
-      fontFamily: "body",
+      fontFamily: "heading",
     },
     h4: {
       fontSize: "1.3rem",
@@ -48,7 +48,7 @@ const theme = extendTheme({
     },
     h5: {
       color: "#6B6262",
-      // fontWeight: 700,
+      fontWeight: 700,
       fontSize: "1rem",
       fontFamily: "body",
     },
