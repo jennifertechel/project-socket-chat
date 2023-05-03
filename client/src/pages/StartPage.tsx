@@ -19,7 +19,7 @@ function StartPage() {
 
   function handleStartChat() {
     socket.emit("join", nickname);
-    navigate("/home");
+    navigate("/home", { state: { nickname: nickname } });
   }
 
   function handleNicknameChange(event: React.ChangeEvent<HTMLInputElement>) {
