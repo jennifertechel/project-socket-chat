@@ -7,8 +7,21 @@ import {
   Text,
   useBreakpointValue,
 } from "@chakra-ui/react";
+import { useState } from "react";
+import io from "socket.io-client";
+
+const socket = io("http://localhost:3000");
 // responsivitet i theme?
 function StartPage() {
+  const [nickname, setNickname] = useState("");
+
+  function handleStartChat() {
+    socket.emit("join", nickname);
+  }
+
+  function handleNicknameChange(event: React.ChangeEvent<HTMLInputElement>) {
+    setNickname(event.target.value);
+  }
   const boxSize = useBreakpointValue({
     base: "sm",
     md: "md",
@@ -30,11 +43,15 @@ function StartPage() {
         <Text m="30px">Enter nickname</Text>
         <Input
           placeholder="Nickname"
+          value={nickname}
+          onChange={handleNicknameChange}
           variant="flushed"
           width="auto"
           textAlign="center"
         ></Input>
-        <Button>Let's Chat!</Button>
+        <Button mt="20px" onClick={handleStartChat}>
+          Let's Chat!
+        </Button>
       </Box>
     </Flex>
   );
