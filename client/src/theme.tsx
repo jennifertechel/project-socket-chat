@@ -25,30 +25,39 @@ const theme = extendTheme({
     },
   },
 
+  fonts: {
+    heading: "Love ya like a sister",
+    body: "Montserrat",
+  },
+
   typography: {
-    fontFamily: ["Montserrat", "Sarabun", "Sulphur Point", "Lato"].join(","),
     h1: {
       fontSize: "3.5rem",
       color: "#CA368F",
+      fontFamily: "heading",
     },
     h2: {
       fontSize: "2rem",
       color: "#6B6262",
+      fontFamily: "body",
     },
     h4: {
       fontSize: "1.3rem",
-      color: "white",
+      color: "6B6262",
+      fontFamily: "body",
     },
     h5: {
       color: "#6B6262",
       // fontWeight: 700,
-      fontSize: "20px",
+      fontSize: "1rem",
+      fontFamily: "body",
     },
 
     components: {
       Button: {
         baseStyle: {
           bg: "brand.100",
+          fontFamily: "body",
         },
       },
     },
