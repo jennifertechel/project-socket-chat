@@ -5,6 +5,7 @@
 ## Chat med socket.io
 
 Ett skolprojekt där vi skapat en chatt-baserad app som låter användare chatta med varandra i realtid. Kommunikationen skulle sättas upp och göras med socket.io. Vi valde även att använda oss av React, TypeScript, Chakra UI.
+Vi som skapat projektet heter Martina Kreivi, Jennifer Techel och Jenny Weijland.
 
 ## Starta Projektet
 
