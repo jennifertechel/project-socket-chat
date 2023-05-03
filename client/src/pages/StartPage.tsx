@@ -1,5 +1,12 @@
+import { Box, Image, Input } from "@chakra-ui/react";
+
 function StartPage() {
-  return <h1>This is startpage</h1>;
+  return (
+    <Box boxSize="sm">
+      <Image src="src/assets/logoWithStamp.png" />
+      <Input placeholder="Nickname" variant="flushed" width="auto"></Input>
+    </Box>
+  );
 }
 
 export default StartPage;
