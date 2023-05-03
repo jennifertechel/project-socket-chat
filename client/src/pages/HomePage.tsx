@@ -6,15 +6,15 @@ import {
   Text,
   useBreakpointValue,
 } from "@chakra-ui/react";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import io from "socket.io-client";
 
 const socket = io("http://localhost:3000");
 // responsivitet i theme? change props : props
 
-function HomePage(props: any) {
-  const [nickname, setNickname] = useState("");
+function HomePage() {
+  const location = useLocation();
+  const nickname = location.state.nickname;
   const navigate = useNavigate();
 
   function handleStartChat() {
@@ -22,9 +22,6 @@ function HomePage(props: any) {
     navigate("/home");
   }
 
-  function handleNicknameChange(event: React.ChangeEvent<HTMLInputElement>) {
-    setNickname(event.target.value);
-  }
   const boxSize = useBreakpointValue({
     base: "sm",
     md: "md",
@@ -44,7 +41,7 @@ function HomePage(props: any) {
         <Image src="src/assets/CHATROPOLIS.svg" />
         <Image src="src/assets/logoWithStamp.png" />
 
-        <Text m="30px">Welcome {props.nickname}</Text>
+        <Text m="30px">Welcome {nickname}!</Text>
         <Flex flexDirection="row" gap="10px">
           <Button mt="20px" onClick={handleStartChat}>
             New Room
