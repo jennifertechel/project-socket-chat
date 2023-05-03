@@ -1,4 +1,10 @@
+# Chatropolis
+
+#### Explore the world through shared experiences
+
 ## Chat med socket.io
+
+Ett skolprojekt där vi skapat en chatt-baserad app som låter användare chatta med varandra i realtid. Kommunikationen skulle sättas upp och göras med socket.io. Vi valde även att använda oss av React, TypeScript, Chakra UI.
 
 ## Starta Projektet
 
