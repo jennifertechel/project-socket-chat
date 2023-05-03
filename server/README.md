@@ -8,6 +8,13 @@ Ett skolprojekt där vi skapat en chatt-baserad app som låter användare chatta
 
 ## Starta Projektet
 
+- `cd server`
+- `npm run dev`
+
+- `cd client`
+- `npm run dev`
+- `npm install`
+
 ### Krav för Godkäns
 
 - [ ] Användaren får börja med att välja ett eget visningsnamn när den besöker sidan.
