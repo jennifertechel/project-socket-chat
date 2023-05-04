@@ -6,22 +6,22 @@ import {
   Text,
   useBreakpointValue,
 } from "@chakra-ui/react";
-import { useLocation, useNavigate } from "react-router-dom";
-import io from "socket.io-client";
-
-const socket = io("http://localhost:3000");
-// responsivitet i theme? change props : props
+import { useSocket } from "../context/SocketContext";
+import { useEffect } from "react";
 
 function HomePage() {
-  const location = useLocation();
-  const nickname = location.state.nickname;
-  const navigate = useNavigate();
+  const { socket, nickname, setNickname } = useSocket();
 
-  function handleStartChat() {
-    socket.emit("join", nickname);
-    navigate("/home");
-  }
+  useEffect(() => {
+    // Get the nickname from the server-side and set it in the state
+    socket.on("nickname", (nickname: string) => {
+      setNickname(nickname);
+    });
 
+    return () => {
+      socket.off("nickname");
+    };
+  }, [socket, setNickname]);
   const boxSize = useBreakpointValue({
     base: "sm",
     md: "md",
@@ -44,12 +44,8 @@ function HomePage() {
 
         <Text m='30px'>Welcome {nickname}!</Text>
         <Flex flexDirection='row' gap='10px'>
-          <Button mt='20px' onClick={handleStartChat}>
-            New Room
-          </Button>
-          <Button mt='20px' onClick={handleStartChat}>
-            Join Room
-          </Button>
+          <Button mt='20px'>New Room</Button>
+          <Button mt='20px'>Join Room</Button>
         </Flex>
       </Box>
     </Flex>

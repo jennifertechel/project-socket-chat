@@ -13,6 +13,8 @@ import {
 
 interface ContextValues {
   socket: Socket;
+  nickname: string;
+  setNickname: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const SocketContext = createContext<ContextValues>(null as any);
@@ -22,6 +24,8 @@ function SocketProvider({ children }: PropsWithChildren) {
   const [socket] = useState<Socket<ServerToClientEvents, ClientToServerEvents>>(
     io()
   );
+
+  const [nickname, setNickname] = useState<string>("");
 
   useEffect(() => {
     function connect() {
@@ -46,7 +50,7 @@ function SocketProvider({ children }: PropsWithChildren) {
   }, [socket]);
 
   return (
-    <SocketContext.Provider value={{ socket }}>
+    <SocketContext.Provider value={{ socket, nickname, setNickname }}>
       {children}
     </SocketContext.Provider>
   );
