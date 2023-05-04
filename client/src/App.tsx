@@ -1,7 +1,13 @@
-import { Text } from "@chakra-ui/layout";
+import { Outlet } from "react-router-dom";
+import Footer from "./components/Footer";
 
 function App() {
-  return <Text></Text>;
+  return (
+    <>
+      <Outlet />
+      <Footer />
+    </>
+  );
 }
 
 export default App;
