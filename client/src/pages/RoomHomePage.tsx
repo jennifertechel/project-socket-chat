@@ -60,6 +60,17 @@ function RoomHomePage() {
             Join Room
           </Button>
         </Flex>
+        <Box
+          background="#B6CE9E"
+          m="10px"
+          p="1px 10px"
+          w="250px"
+          alignItems="center"
+          justifyContent="center"
+          mt="20px"
+        >
+          <Text textAlign="center">Active Rooms</Text>
+        </Box>
         <JoinRoom />
       </Box>
     </Flex>
