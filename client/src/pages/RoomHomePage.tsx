@@ -72,6 +72,7 @@ function RoomHomePage() {
           <Text textAlign="center">Active Rooms</Text>
         </Box>
         <JoinRoom />
+        <JoinRoom />
       </Box>
     </Flex>
   );

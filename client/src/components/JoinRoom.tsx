@@ -7,7 +7,7 @@ export default function JoinRoom() {
         border="1px solid"
         borderColor="#6B6262"
         background="#f5f5f5"
-        m="10px"
+        m="5px"
         p="1px 10px"
         w="400px"
       >
