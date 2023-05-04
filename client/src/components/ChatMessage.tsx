@@ -38,7 +38,7 @@ export default function ChatMessage() {
       </Flex>
       <Flex align="center">
         <Box w="285px" ml="0.5rem" mt="1rem" border="1px">
-          <Form id="myForm">
+          <Form id="messageInput">
             <FormControl>
               <Input
                 type="text"
@@ -52,7 +52,7 @@ export default function ChatMessage() {
           <Button
             mt="1rem"
             type="submit"
-            form="myForm"
+            form="messageInput"
             fontSize="0.7rem"
             size="sm"
           >

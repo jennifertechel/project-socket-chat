@@ -5,7 +5,7 @@ function RoomChat() {
   return (
     <>
       <Box h="80px">
-        <Image src="src/assets/CHATROPOLIS.svg" />
+        <Image src="assets/CHATROPOLIS.svg" />
       </Box>
 
       <Box
