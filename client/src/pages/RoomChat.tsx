@@ -15,6 +15,7 @@ function RoomChat() {
         ml="0.5rem"
         border="1px"
         textAlign="center"
+        lineHeight="2.8rem"
       >
         <Text fontFamily="Montserrat" color="white">
           Tips in Paris
