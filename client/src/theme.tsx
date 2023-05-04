@@ -56,7 +56,7 @@ const theme = extendTheme({
     components: {
       Button: {
         baseStyle: {
-          bg: "brand.100",
+          bg: "brand.500",
           fontFamily: "body",
         },
       },
