@@ -8,6 +8,7 @@ import {
 } from "@chakra-ui/react";
 import { useLocation, useNavigate } from "react-router-dom";
 import io from "socket.io-client";
+import JoinRoom from "../components/JoinRoom";
 
 const socket = io("http://localhost:3000");
 // responsivitet i theme? change props : props
@@ -59,31 +60,7 @@ function RoomHomePage() {
             Join Room
           </Button>
         </Flex>
-        <Flex flexDirection="column">
-          <Box
-            border="1px solid"
-            borderColor="#6B6262"
-            background="#f5f5f5"
-            m="10px"
-            p="1px 10px"
-            w={boxSize}
-            alignItems="center"
-            justifyContent="center"
-          >
-            <Text textAlign="left">Paris</Text>
-            <Text textAlign="right">5 Online</Text>
-          </Box>
-          <Box
-            border="1px solid"
-            borderColor="#6B6262"
-            background="#f5f5f5"
-            m="10px"
-            p="1px 10px"
-            w={boxSize}
-          >
-            hej
-          </Box>
-        </Flex>
+        <JoinRoom />
       </Box>
     </Flex>
   );
