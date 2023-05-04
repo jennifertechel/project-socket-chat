@@ -1,4 +1,4 @@
-import { Box, Flex } from "@chakra-ui/react";
+import { Box, Flex, Text } from "@chakra-ui/react";
 
 export default function JoinRoom() {
   return (
@@ -9,8 +9,12 @@ export default function JoinRoom() {
         background="#f5f5f5"
         m="10px"
         p="1px 10px"
+        w="400px"
       >
-        hej
+        <Flex justifyContent="space-between">
+          <Text ml="0">"City"</Text>
+          <Text mr="10px">"Inlogged users"</Text>
+        </Flex>
       </Box>
     </Flex>
   );

@@ -42,7 +42,7 @@ function RoomHomePage() {
     <Flex justifyContent="center" alignItems="center">
       <Box
         boxSize="200px"
-        mt="100px"
+        mt="150px"
         display="flex"
         flexDirection="column"
         justifyContent="center"
@@ -64,7 +64,7 @@ function RoomHomePage() {
           background="#B6CE9E"
           m="10px"
           p="1px 10px"
-          w="250px"
+          w="400px"
           alignItems="center"
           justifyContent="center"
           mt="20px"
