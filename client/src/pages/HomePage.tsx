@@ -28,25 +28,26 @@ function HomePage() {
     lg: "lg",
     xl: "2xl",
   });
+
   return (
-    <Flex justifyContent="center" alignItems="center">
+    <Flex justifyContent='center' alignItems='center'>
       <Box
         boxSize={boxSize}
-        mt="100px"
-        display="flex"
-        flexDirection="column"
-        justifyContent="center"
-        alignItems="center"
+        mt='100px'
+        display='flex'
+        flexDirection='column'
+        justifyContent='center'
+        alignItems='center'
       >
-        <Image src="src/assets/CHATROPOLIS.svg" />
-        <Image src="src/assets/logoWithStamp.png" />
+        <Image src='src/assets/CHATROPOLIS.svg' />
+        <Image src='src/assets/logoWithStamp.png' />
 
-        <Text m="30px">Welcome {nickname}!</Text>
-        <Flex flexDirection="row" gap="10px">
-          <Button mt="20px" onClick={handleStartChat}>
+        <Text m='30px'>Welcome {nickname}!</Text>
+        <Flex flexDirection='row' gap='10px'>
+          <Button mt='20px' onClick={handleStartChat}>
             New Room
           </Button>
-          <Button mt="20px" onClick={handleStartChat}>
+          <Button mt='20px' onClick={handleStartChat}>
             Join Room
           </Button>
         </Flex>
