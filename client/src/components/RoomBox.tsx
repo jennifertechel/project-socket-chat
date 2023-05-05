@@ -1,6 +1,6 @@
 import { Box, Flex, Text } from "@chakra-ui/react";
 
-export default function JoinRoom() {
+export default function RoomBox() {
   return (
     <Flex mt="10px" flexDirection="column">
       <Box

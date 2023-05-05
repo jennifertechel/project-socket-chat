@@ -1,7 +1,7 @@
 import {
   Box,
-  Button,
   Flex,
+  Heading,
   Image,
   Text,
   useBreakpointValue,
@@ -42,11 +42,8 @@ function HomePage() {
         <Image src="src/assets/CHATROPOLIS.svg" />
         <Image src="src/assets/logoWithStamp.png" />
 
-        <Text m="30px">Welcome {nickname}!</Text>
-        <Flex flexDirection="row" gap="10px">
-          <Button mt="20px">New Room</Button>
-          <Button mt="20px">Join Room</Button>
-        </Flex>
+        <Heading m="30px">Welcome {nickname}!</Heading>
+        <Text>Write something here and a little description</Text>
       </Box>
     </Flex>
   );

@@ -6,30 +6,29 @@ import {
   Text,
   useBreakpointValue,
 } from "@chakra-ui/react";
-import { useLocation, useNavigate } from "react-router-dom";
-import io from "socket.io-client";
-import JoinRoom from "../components/JoinRoom";
-
-const socket = io("http://localhost:3000");
-// responsivitet i theme? change props : props
+import { useEffect, useState } from "react";
+import ActiveRooms from "../components/ActiveRooms";
+import { useSocket } from "../context/SocketContext";
 
 function RoomHomePage() {
-  const location = useLocation();
-  //const nickname = location.state.nickname;
-  const navigate = useNavigate();
+  const { socket, nickname, setNickname } = useSocket();
+  const [showJoinRoom, setShowJoinRoom] = useState(false);
 
-  function handleStartChat() {
-    //socket.emit("join", nickname);
-    navigate("/home");
-  }
-  function handleNewRoom() {
-    //socket.emit("join", nickname);
-    navigate("/room/new");
-  }
-  function handleJoinRoom() {
-    //socket.emit("join", nickname);
-    navigate("/room");
-  }
+  const handleJoinRoomClick = () => {
+    // Toggle the value of showNewElement
+    setShowJoinRoom((prevState) => !prevState);
+  };
+
+  useEffect(() => {
+    // Get the nickname from the server-side and set it in the state
+    socket.on("nickname", (nickname: string) => {
+      setNickname(nickname);
+    });
+
+    return () => {
+      socket.off("nickname");
+    };
+  }, [socket, setNickname]);
 
   const boxSize = useBreakpointValue({
     base: "sm",
@@ -39,10 +38,10 @@ function RoomHomePage() {
   });
 
   return (
-    <Flex justifyContent="center" alignItems="center">
+    <Flex justifyContent="center" alignItems="center" flexDir="column">
       <Box
-        boxSize="200px"
-        mt="150px"
+        boxSize={boxSize}
+        mt="100px"
         display="flex"
         flexDirection="column"
         justifyContent="center"
@@ -51,29 +50,16 @@ function RoomHomePage() {
         <Image src="src/assets/CHATROPOLIS.svg" />
         <Image src="src/assets/logoWithStamp.png" />
 
-        <Text m="30px">Welcome !</Text>
+        <Text m="30px">Welcome {nickname}!</Text>
         <Flex flexDirection="row" gap="10px">
-          <Button mt="20px" onClick={handleNewRoom}>
-            New Room
-          </Button>
-          <Button mt="20px" onClick={handleJoinRoom}>
+          <Button mt="20px">New Room</Button>
+          <Button mt="20px" onClick={handleJoinRoomClick}>
             Join Room
           </Button>
         </Flex>
-        <Box
-          background="#B6CE9E"
-          m="10px"
-          p="1px 10px"
-          w="400px"
-          alignItems="center"
-          justifyContent="center"
-          mt="20px"
-        >
-          <Text textAlign="center">Active Rooms</Text>
-        </Box>
-        <JoinRoom />
-        <JoinRoom />
       </Box>
+
+      {showJoinRoom && <ActiveRooms />}
     </Flex>
   );
 }
