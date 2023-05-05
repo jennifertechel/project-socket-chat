@@ -1,5 +1,5 @@
 import { Box, Image, Text } from "@chakra-ui/react";
-import ChatMessage from "../components/ChatMessage";
+import ChatMessage from "../components/MessageBox";
 
 function RoomChat() {
   return (
