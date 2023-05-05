@@ -7,24 +7,22 @@ import {
   Text,
   useBreakpointValue,
 } from "@chakra-ui/react";
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import io from "socket.io-client";
+import { useSocket } from "../context/SocketContext";
 
-const socket = io("http://localhost:3000");
-// responsivitet i theme?
 function StartPage() {
-  const [nickname, setNickname] = useState("");
+  const { socket, nickname, setNickname } = useSocket();
   const navigate = useNavigate();
 
   function handleStartChat() {
     socket.emit("join", nickname);
-    navigate("/home", { state: { nickname: nickname } });
+    navigate("/home");
   }
 
   function handleNicknameChange(event: React.ChangeEvent<HTMLInputElement>) {
     setNickname(event.target.value);
   }
+
   const boxSize = useBreakpointValue({
     base: "sm",
     md: "md",
