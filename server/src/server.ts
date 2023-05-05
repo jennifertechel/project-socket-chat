@@ -16,10 +16,14 @@ const io = new Server<
 io.on("connection", (socket) => {
   console.log("a user connected");
 
-  socket.on("join", (nickname: string) => {
+  socket.on("nickname", (nickname: string) => {
     // Store the nickname in the socket object's data property
     socket.data.nickname = nickname;
     console.log(`User ${nickname} logged in`);
+  });
+
+  socket.on("join", () => {
+    console.log("join");
   });
 
   socket.on("disconnect", () => {

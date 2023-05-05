@@ -15,7 +15,7 @@ function StartPage() {
   const navigate = useNavigate();
 
   function handleStartChat() {
-    socket.emit("join", nickname);
+    socket.emit("nickname", nickname);
     navigate("/home");
   }
 
