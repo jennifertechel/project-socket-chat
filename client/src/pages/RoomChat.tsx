@@ -1,11 +1,12 @@
 import { Box, Image, Text } from "@chakra-ui/react";
-import ChatMessage from "../components/MessageBox";
+import MessageBox from "../components/MessageBox";
+import MessageInput from "../components/MessageInput";
 
 function RoomChat() {
   return (
     <>
-      <Box h="80px">
-        <Image src="assets/CHATROPOLIS.svg" />
+      <Box w="345px" h="150px">
+        <Image h="150px" src="/assets/logoWithStamp.png" />
       </Box>
 
       <Box
@@ -21,7 +22,8 @@ function RoomChat() {
           Tips in Paris
         </Text>
       </Box>
-      <ChatMessage />
+      <MessageBox />
+      <MessageInput />
     </>
   );
 }
