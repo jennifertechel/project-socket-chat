@@ -1,6 +1,11 @@
 import { Avatar, Box, Flex, Text } from "@chakra-ui/react";
+import { useState } from "react";
+import { useSocket } from "../context/SocketContext";
 
 export default function MessageBox() {
+  const [message, setMessage] = useState("");
+  const { sendMessage } = useSocket();
+
   return (
     <>
       <Flex bg="#F5F5F5" mt="1rem" w="345px" ml="0.5rem" align="center">
@@ -22,8 +27,7 @@ export default function MessageBox() {
             fontSize="0.8rem"
             color="#6B6262"
           >
-            I'm going to Paris in June. Can anyone recommend any good hotels
-            near the Eiffel Tower?
+            {message}
           </Text>
         </Box>
       </Flex>

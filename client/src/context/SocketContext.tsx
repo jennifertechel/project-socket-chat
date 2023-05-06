@@ -40,7 +40,7 @@ function SocketProvider({ children }: PropsWithChildren) {
     function disconnect() {
       console.log("Disconnected to server");
     }
-    function message() {
+    function message(message: string) {
       console.log(message);
     }
 
