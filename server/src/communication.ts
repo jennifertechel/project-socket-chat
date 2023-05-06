@@ -3,7 +3,7 @@ export interface ServerToClientEvents {
 }
 
 export interface ClientToServerEvents {
-  message: (message: string, room: string) => void;
+  message: (message: string) => void;
   join: (room: string) => void;
   leave: (room: string) => void;
 }

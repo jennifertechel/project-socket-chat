@@ -15,7 +15,7 @@ interface ContextValues {
   socket: Socket;
   nickname: string;
   setNickname: React.Dispatch<React.SetStateAction<string>>;
-  sendMessage: (message: string, room: string) => void;
+  sendMessage: (message: string) => void;
 }
 
 const SocketContext = createContext<ContextValues>(null as any);
@@ -28,8 +28,9 @@ function SocketProvider({ children }: PropsWithChildren) {
 
   const [nickname, setNickname] = useState<string>("");
 
-  const sendMessage = (message: string, room: string) => {
-    socket.emit("message", message, room);
+  //Lägg till room
+  const sendMessage = (message: string) => {
+    socket.emit("message", message);
   };
 
   useEffect(() => {
