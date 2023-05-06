@@ -1,12 +1,16 @@
 import { Box, Button, Flex, FormControl, Input } from "@chakra-ui/react";
 import { useState } from "react";
 import { Form } from "react-router-dom";
+import { useSocket } from "../context/SocketContext";
 
 export default function MessageInput() {
   const [message, setMessage] = useState("");
+  const { sendMessage } = useSocket();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    sendMessage(message);
+    setMessage('');
   };
 
   return (
