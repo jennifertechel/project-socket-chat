@@ -16,6 +16,12 @@ const io = new Server<
 io.on("connection", (socket) => {
   console.log("a user connected");
 
+  //Lägg till nickname, så att det syns vem som skrivit, fick felmeddelande när jag la till socket.data.name
+  socket.on('message', (message, room,) => {
+    io.to(room).emit('message', message);
+    console.log(message);
+  });
+
   socket.on("join", (nickname: string) => {
     // Store the nickname in the socket object's data property
     socket.data.nickname = nickname;
