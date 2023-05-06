@@ -1,17 +1,27 @@
 import { Box, Button, Flex, FormControl, Input } from "@chakra-ui/react";
+import { useState } from "react";
 import { Form } from "react-router-dom";
 
 export default function MessageInput() {
+  const [message, setMessage] = useState("");
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+  };
+
   return (
     <>
       <Flex align="center">
         <Box w="285px" ml="0.5rem" mt="1rem" border="1px">
-          <Form id="messageInput">
+          <Form onSubmit={handleSubmit} id="messageInput">
             <FormControl>
               <Input
-                type="text"
-                fontSize="0.8rem"
+                name="message"
                 placeholder="Write a message"
+                type="text"
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                fontSize="0.8rem"
               />
             </FormControl>
           </Form>
