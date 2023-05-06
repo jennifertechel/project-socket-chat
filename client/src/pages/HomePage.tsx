@@ -5,9 +5,12 @@ import {
   Image,
   Text,
   useBreakpointValue,
+  useMediaQuery,
 } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { useSocket } from "../context/SocketContext";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 function HomePage() {
   const { socket, nickname, setNickname } = useSocket();
@@ -22,29 +25,31 @@ function HomePage() {
       socket.off("nickname");
     };
   }, [socket, setNickname]);
-  const boxSize = useBreakpointValue({
-    base: "sm",
-    md: "md",
-    lg: "lg",
-    xl: "2xl",
-  });
+
+  const [isMobile] = useMediaQuery("(max-width: 768px)");
 
   return (
-    <Flex justifyContent="center" alignItems="center">
-      <Box
-        boxSize={boxSize}
-        mt="100px"
-        display="flex"
-        flexDirection="column"
-        justifyContent="center"
-        alignItems="center"
-      >
-        <Image src="src/assets/CHATROPOLIS.svg" />
-        <Image src="src/assets/logoWithStamp.png" />
-
-        <Heading m="30px">Welcome {nickname}!</Heading>
-        <Text>Write something here and a little description</Text>
-      </Box>
+    <Flex justifyContent='center' alignItems='center'>
+      {isMobile ? (
+        <Box textAlign='center' mt={48}>
+          <Heading fontFamily='Luckiest Guy' color='brand.900' fontSize={38}>
+            Chatropolis
+          </Heading>
+          <Image px={6} mt={8} src='/city.svg' />
+          <Heading m='30px'>Welcome {nickname}!</Heading>
+          <Text>Write something here and a little description</Text>
+          <Footer />
+        </Box>
+      ) : (
+        <Flex flexDirection='column' alignItems='center'>
+          <Header />
+          <Box mt={180}>
+            <Heading m='30px'>Welcome {nickname}!</Heading>
+            <Text>Write something here and a little description</Text>
+            <Image pos='fixed' bottom={0} right={0} src='/city.svg' />
+          </Box>
+        </Flex>
+      )}
     </Flex>
   );
 }
