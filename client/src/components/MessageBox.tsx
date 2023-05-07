@@ -8,7 +8,14 @@ export default function MessageBox() {
 
   return (
     <>
-      <Flex bg="#F5F5F5" mt="1rem" w="345px" ml="0.5rem" align="center">
+      <Flex
+        bg="#F5F5F5"
+        mt="1rem"
+        w="345px"
+        ml="0.5rem"
+        align="center"
+        alignItems="flex-start"
+      >
         <Avatar bg="teal.500" />
         <Box bg="#F5F5F5">
           <Text
