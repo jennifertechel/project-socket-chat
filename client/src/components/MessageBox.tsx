@@ -35,9 +35,9 @@ export default function MessageBox() {
           </Text>
         </Box>
       </Flex>
-      <Box>
-        <Text fontSize="0.8rem">User is typing</Text>
-      </Box>
+
+      {/* Här syns om en användare skriver eller inte */}
+      <Box>{/* {isTyping && <div>{nickname} is typing...</div>} */}</Box>
     </>
   );
 }

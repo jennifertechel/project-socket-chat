@@ -1,11 +1,13 @@
 export interface ServerToClientEvents {
   message: (message: string) => void;
+  typing: (nickname: string) => void;
 }
 
 export interface ClientToServerEvents {
   message: (message: string) => void;
   join: (room: string) => void;
   leave: (room: string) => void;
+  typing: (nickname: string) => void;
 }
 
 export interface InterServerEvents {
