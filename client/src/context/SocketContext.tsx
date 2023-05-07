@@ -15,6 +15,8 @@ interface ContextValues {
   nickname: string;
   setNickname: React.Dispatch<React.SetStateAction<string>>;
   handleSetNickname: () => void;
+  joinRoom: (room: string) => void;
+  room?: string;
 }
 
 const SocketContext = createContext<ContextValues>(null as any);
@@ -22,17 +24,23 @@ export const useSocket = () => useContext(SocketContext);
 
 function SocketProvider({ children }: PropsWithChildren) {
   const [nickname, setNickname] = useState<string>("");
+  const [room, setRoom] = useState<string>();
 
   const [socket] = useState<Socket<ServerToClientEvents, ClientToServerEvents>>(
     io()
   );
+
+  const joinRoom = (room: string) => {
+    socket.emit("join", room, () => {
+      setRoom(room);
+    });
+  };
+
   const handleSetNickname = () => {
     socket.emit("nickname", nickname);
-    // Additional logic for starting chat if needed
   };
 
   useEffect(() => {
-    // Get the nickname from the server-side and set it in the state
     socket.on("nickname", (nickname: string) => {
       setNickname(nickname);
     });
@@ -53,20 +61,26 @@ function SocketProvider({ children }: PropsWithChildren) {
       console.log(message);
     }
 
+    function rooms(rooms: string[]) {
+      console.log(rooms);
+    }
+
     socket.on("connect", connect);
     socket.on("disconnect", disconnect);
     socket.on("message", message);
+    socket.on("rooms", rooms);
 
     return () => {
       socket.off("connect", connect);
       socket.off("disconnect", connect);
       socket.off("message", connect);
+      socket.off("rooms", rooms);
     };
   }, [socket]);
 
   return (
     <SocketContext.Provider
-      value={{ nickname, setNickname, handleSetNickname }}
+      value={{ nickname, setNickname, handleSetNickname, joinRoom }}
     >
       {children}
     </SocketContext.Provider>

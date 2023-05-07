@@ -12,7 +12,7 @@ import { useSocket } from "../context/SocketContext";
 import { useNavigate } from "react-router-dom";
 
 function RoomHomePage() {
-  const { socket, nickname, setNickname } = useSocket();
+  const { nickname } = useSocket();
   const [showRooms, setShowRooms] = useState(false);
   const navigate = useNavigate();
 
@@ -23,17 +23,6 @@ function RoomHomePage() {
   const handleNewRoom = () => {
     navigate("/room/new");
   };
-
-  useEffect(() => {
-    // Get the nickname from the server-side and set it in the state
-    socket.on("nickname", (nickname: string) => {
-      setNickname(nickname);
-    });
-
-    return () => {
-      socket.off("nickname");
-    };
-  }, [socket, setNickname]);
 
   const boxSize = useBreakpointValue({
     base: "sm",

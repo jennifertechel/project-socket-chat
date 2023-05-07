@@ -6,11 +6,10 @@ import {
   Text,
   useBreakpointValue,
 } from "@chakra-ui/react";
-import { useEffect } from "react";
 import { useSocket } from "../context/SocketContext";
 
 function HomePage() {
-  const { nickname, setNickname } = useSocket();
+  const { nickname } = useSocket();
 
   const boxSize = useBreakpointValue({
     base: "sm",
