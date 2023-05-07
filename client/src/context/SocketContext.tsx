@@ -44,6 +44,7 @@ function SocketProvider({ children }: PropsWithChildren) {
       console.log("Disconnected to server");
     }
     function message(message: string) {
+      console.log(message);
       setMessages((messages) => [...messages, { message }]);
     }
 

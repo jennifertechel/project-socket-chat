@@ -28,7 +28,7 @@ export default function MessageBox() {
             color="#6B6262"
           >
             {messages.map((message, i) => (
-              <p key={i}>{message.message}</p>
+              <ul key={i}>{message.message}</ul>
             ))}
           </Text>
         </Box>
