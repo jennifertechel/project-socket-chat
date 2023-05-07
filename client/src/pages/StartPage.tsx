@@ -11,11 +11,11 @@ import { useNavigate } from "react-router-dom";
 import { useSocket } from "../context/SocketContext";
 
 function StartPage() {
-  const { socket, nickname, setNickname } = useSocket();
+  const { handleSetNickname, setNickname, nickname } = useSocket();
   const navigate = useNavigate();
 
-  function handleStartChat() {
-    socket.emit("nickname", nickname);
+  function handleSubmit() {
+    handleSetNickname();
     navigate("/home");
   }
 
@@ -51,7 +51,7 @@ function StartPage() {
           width='auto'
           textAlign='center'
         ></Input>
-        <Button mt='20px' onClick={handleStartChat}>
+        <Button mt='20px' onClick={handleSubmit}>
           Let's Chat!
         </Button>
       </Box>

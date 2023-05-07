@@ -1,5 +1,6 @@
 export interface ServerToClientEvents {
   message: (message: string) => void;
+  nickname: (nickname: string) => void;
 }
 
 export interface ClientToServerEvents {

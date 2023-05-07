@@ -12,20 +12,35 @@ import {
 } from "../../../server/src/communication";
 
 interface ContextValues {
-  socket: Socket;
   nickname: string;
   setNickname: React.Dispatch<React.SetStateAction<string>>;
+  handleSetNickname: () => void;
 }
 
 const SocketContext = createContext<ContextValues>(null as any);
 export const useSocket = () => useContext(SocketContext);
 
 function SocketProvider({ children }: PropsWithChildren) {
+  const [nickname, setNickname] = useState<string>("");
+
   const [socket] = useState<Socket<ServerToClientEvents, ClientToServerEvents>>(
     io()
   );
+  const handleSetNickname = () => {
+    socket.emit("nickname", nickname);
+    // Additional logic for starting chat if needed
+  };
 
-  const [nickname, setNickname] = useState<string>("");
+  useEffect(() => {
+    // Get the nickname from the server-side and set it in the state
+    socket.on("nickname", (nickname: string) => {
+      setNickname(nickname);
+    });
+
+    return () => {
+      socket.off("nickname");
+    };
+  }, [socket, setNickname]);
 
   useEffect(() => {
     function connect() {
@@ -50,7 +65,9 @@ function SocketProvider({ children }: PropsWithChildren) {
   }, [socket]);
 
   return (
-    <SocketContext.Provider value={{ socket, nickname, setNickname }}>
+    <SocketContext.Provider
+      value={{ nickname, setNickname, handleSetNickname }}
+    >
       {children}
     </SocketContext.Provider>
   );
