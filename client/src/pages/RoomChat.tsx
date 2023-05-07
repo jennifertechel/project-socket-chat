@@ -4,8 +4,14 @@ import MessageInput from "../components/MessageInput";
 
 function RoomChat() {
   return (
-    <>
-      <Box w="345px" h="150px">
+    <Box
+      h="100vh"
+      display="flex"
+      flexDirection="column"
+      justifyContent="center"
+      alignItems="center"
+    >
+      <Box w="345px" h="150px" mb="2rem">
         <Image h="150px" src="/assets/logoWithStamp.png" />
       </Box>
 
@@ -13,10 +19,10 @@ function RoomChat() {
         bg="#D14F9D"
         w="345px"
         h="50px"
-        ml="0.5rem"
         border="1px"
         textAlign="center"
         lineHeight="2.8rem"
+        mb="2rem"
       >
         <Text fontFamily="Montserrat" color="white">
           Tips in Paris
@@ -24,7 +30,7 @@ function RoomChat() {
       </Box>
       <MessageBox />
       <MessageInput />
-    </>
+    </Box>
   );
 }
 
