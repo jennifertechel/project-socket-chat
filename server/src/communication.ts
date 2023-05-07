@@ -15,3 +15,8 @@ export interface InterServerEvents {
 export interface SocketData {
   nickname?: string;
 }
+
+//ska även ha name: string;
+export interface Message {
+  message: string;
+}

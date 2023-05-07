@@ -8,6 +8,7 @@ import {
 import { Socket, io } from "socket.io-client";
 import {
   ClientToServerEvents,
+  Message,
   ServerToClientEvents,
 } from "../../../server/src/communication";
 
@@ -22,6 +23,7 @@ const SocketContext = createContext<ContextValues>(null as any);
 export const useSocket = () => useContext(SocketContext);
 
 function SocketProvider({ children }: PropsWithChildren) {
+  const [messages, setMessages] = useState<Message[]>([]);
   const [socket] = useState<Socket<ServerToClientEvents, ClientToServerEvents>>(
     io()
   );
@@ -41,7 +43,7 @@ function SocketProvider({ children }: PropsWithChildren) {
       console.log("Disconnected to server");
     }
     function message(message: string) {
-      console.log(message);
+      setMessages((messages) => [...messages, { message }]);
     }
 
     socket.on("connect", connect);
