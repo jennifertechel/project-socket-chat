@@ -17,6 +17,7 @@ interface ContextValues {
   nickname: string;
   setNickname: React.Dispatch<React.SetStateAction<string>>;
   sendMessage: (message: string) => void;
+  messages: Message[];
 }
 
 const SocketContext = createContext<ContextValues>(null as any);
@@ -59,7 +60,7 @@ function SocketProvider({ children }: PropsWithChildren) {
 
   return (
     <SocketContext.Provider
-      value={{ socket, nickname, setNickname, sendMessage }}
+      value={{ socket, nickname, setNickname, sendMessage, messages }}
     >
       {children}
     </SocketContext.Provider>

@@ -4,7 +4,7 @@ import { useSocket } from "../context/SocketContext";
 
 export default function MessageBox() {
   const [message, setMessage] = useState("");
-  const { sendMessage } = useSocket();
+  const { sendMessage, messages } = useSocket();
 
   return (
     <>
@@ -27,7 +27,9 @@ export default function MessageBox() {
             fontSize="0.8rem"
             color="#6B6262"
           >
-            {message}
+            {messages.map((message, i) => (
+              <p key={i}>{message.message}</p>
+            ))}
           </Text>
         </Box>
       </Flex>
