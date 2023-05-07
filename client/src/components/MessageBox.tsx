@@ -27,9 +27,11 @@ export default function MessageBox() {
             fontSize="0.8rem"
             color="#6B6262"
           >
-            {messages.map((message, i) => (
-              <ul key={i}>{message.message}</ul>
-            ))}
+            <ul style={{ listStyleType: "none" }}>
+              {messages.map((message, i) => (
+                <li key={i}>{message.message}</li>
+              ))}
+            </ul>
           </Text>
         </Box>
       </Flex>
