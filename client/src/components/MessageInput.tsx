@@ -16,7 +16,7 @@ export default function MessageInput() {
   return (
     <>
       <Flex align="center">
-        <Box w="285px" ml="0.5rem" mt="1rem" border="1px">
+        <Box w="285px" ml="0.5rem" border="1px">
           <Form onSubmit={handleSubmit} id="messageInput">
             <FormControl>
               <Input
@@ -31,13 +31,7 @@ export default function MessageInput() {
           </Form>
         </Box>
         <Box ml="0.4rem">
-          <Button
-            mt="1rem"
-            type="submit"
-            form="messageInput"
-            fontSize="0.7rem"
-            size="sm"
-          >
+          <Button type="submit" form="messageInput" fontSize="0.7rem" size="sm">
             Send
           </Button>
         </Box>

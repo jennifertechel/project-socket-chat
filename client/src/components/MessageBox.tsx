@@ -35,6 +35,9 @@ export default function MessageBox() {
           </Text>
         </Box>
       </Flex>
+      <Box>
+        <Text fontSize="0.8rem">User is typing</Text>
+      </Box>
     </>
   );
 }
