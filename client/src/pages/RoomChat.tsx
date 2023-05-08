@@ -1,8 +1,10 @@
 import { Box, Image, Text } from "@chakra-ui/react";
 import MessageBox from "../components/MessageBox";
 import MessageInput from "../components/MessageInput";
+import { useSocket } from "../context/SocketContext";
 
 function RoomChat() {
+  const { room } = useSocket();
   return (
     <Box
       h="100vh"
@@ -25,7 +27,7 @@ function RoomChat() {
         mb="2rem"
       >
         <Text fontFamily="Montserrat" color="white">
-          Tips in Paris
+          Tips in {room}
         </Text>
       </Box>
       <MessageBox />

@@ -130,6 +130,7 @@ function SocketProvider({ children }: PropsWithChildren) {
         setNickname,
         handleSetNickname,
         joinRoom,
+        room,
         sendMessage,
         messages,
       }}

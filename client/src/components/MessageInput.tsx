@@ -5,11 +5,11 @@ import { useSocket } from "../context/SocketContext";
 
 export default function MessageInput() {
   const [message, setMessage] = useState("");
-  const { sendMessage } = useSocket();
+  const { sendMessage, nickname } = useSocket();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    sendMessage(message);
+    sendMessage(nickname, message);
     setMessage("");
   };
 
