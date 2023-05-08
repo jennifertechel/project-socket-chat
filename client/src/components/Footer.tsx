@@ -16,7 +16,7 @@ export default function Footer() {
         <Link to="/room">Room</Link>
       </Box>
       <Box>
-        <Link to="home">Home</Link>
+        <Link to="/home">Home</Link>
       </Box>
       <Box>
         <Link to="private">Private</Link>
