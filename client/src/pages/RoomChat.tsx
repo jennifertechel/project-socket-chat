@@ -3,9 +3,11 @@ import MessageBox from "../components/MessageBox";
 import MessageInput from "../components/MessageInput";
 import { useSocket } from "../context/SocketContext";
 import Header from "../components/Header";
+import { useParams } from "react-router-dom";
 
 function RoomChat() {
-  const { room } = useSocket();
+  const { roomId } = useParams();
+
   const [isMobile] = useMediaQuery("(max-width: 768px)");
 
   return (
@@ -28,7 +30,7 @@ function RoomChat() {
         mb='2rem'
       >
         <Text fontFamily='Montserrat' color='white'>
-          Tips in {room}
+          Tips in {roomId}
         </Text>
       </Box>
       <MessageBox />

@@ -1,45 +1,24 @@
-import { Box, Text, useBreakpointValue } from "@chakra-ui/react";
-import { useLocation, useNavigate } from "react-router-dom";
-import { useSocket } from "../context/SocketContext";
+import { Box, Text } from "@chakra-ui/react";
 import RoomBox from "./RoomBox";
+import { useSocket } from "../context/SocketContext";
 
 function ActiveRooms() {
-  const { nickname } = useSocket();
-  const location = useLocation();
-  //const nickname = location.state.nickname;
-  const navigate = useNavigate();
-
-  function handleNewRoom() {
-    //socket.emit("join", nickname);
-    navigate("/room/new");
-  }
-  function handleJoinRoom() {
-    //socket.emit("join", nickname);
-    navigate("/room");
-  }
-
-  const boxSize = useBreakpointValue({
-    base: "sm",
-    md: "md",
-    lg: "lg",
-    xl: "2xl",
-  });
+  const { joinRoom, rooms } = useSocket();
 
   return (
-    <Box>
+    <Box w='90%'>
       <Box
-        background="#B6CE9E"
-        m="10px"
-        p="1px 10px"
-        w="400px"
-        alignItems="center"
-        justifyContent="center"
-        mt="20px"
+        background='#B6CE9E'
+        p='1px 10px'
+        alignItems='center'
+        justifyContent='center'
+        mt='20px'
       >
-        <Text textAlign="center">Active Rooms</Text>
+        <Text textAlign='center'>Active Rooms</Text>
       </Box>
-      <RoomBox />
-      <RoomBox />
+      {rooms.map((room) => (
+        <RoomBox key={room} room={room} joinRoom={joinRoom} />
+      ))}
     </Box>
   );
 }

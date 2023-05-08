@@ -27,15 +27,15 @@ import theme from "./theme";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/" element={<App />}>
+    <Route path='/' element={<App />}>
       <Route index element={<StartPage />} />
-      <Route path="home" element={<HomePage />} />
-      <Route path="/room" element={<RoomHomePage />} />
-      <Route path="room/new" element={<RoomNewPage />} />
-      <Route path="room/chat" element={<RoomChat />} />
-      <Route path="private" element={<PrivateHomePage />} />
-      <Route path="private/new" element={<PrivateNewPage />} />
-      <Route path="private/chat" element={<PrivateChat />} />
+      <Route path='home' element={<HomePage />} />
+      <Route path='/room' element={<RoomHomePage />} />
+      <Route path='room/new' element={<RoomNewPage />} />
+      <Route path='room/:roomId' element={<RoomChat />} />
+      <Route path='private' element={<PrivateHomePage />} />
+      <Route path='private/new' element={<PrivateNewPage />} />
+      <Route path='private/chat' element={<PrivateChat />} />
     </Route>
   )
 );
