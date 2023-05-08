@@ -40,8 +40,8 @@ function StartPage() {
         justifyContent='center'
         alignItems='center'
       >
-        <Image src='src/assets/CHATROPOLIS.svg' />
-        <Image src='src/assets/logoWithStamp.png' />
+        <Image src='/assets/CHATROPOLIS.svg' />
+        <Image src='/assets/logoWithStamp.png' />
         <Text m='30px'>Enter nickname</Text>
         <Input
           placeholder='Nickname'
