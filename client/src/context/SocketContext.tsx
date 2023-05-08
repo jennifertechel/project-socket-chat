@@ -125,7 +125,14 @@ function SocketProvider({ children }: PropsWithChildren) {
 
   return (
     <SocketContext.Provider
-      value={{ nickname, setNickname, handleSetNickname, joinRoom }}
+      value={{
+        nickname,
+        setNickname,
+        handleSetNickname,
+        joinRoom,
+        sendMessage,
+        messages,
+      }}
     >
       {children}
     </SocketContext.Provider>
