@@ -4,22 +4,22 @@ import { Link } from "react-router-dom";
 export default function Footer() {
   return (
     <Flex
-      pos='fixed'
+      pos="fixed"
       bottom={0}
-      w='100vw'
-      justifyContent='space-evenly'
-      alignItems='center'
+      w="100vw"
+      justifyContent="space-evenly"
+      alignItems="center"
       h={20}
-      borderTop='1px solid lightgrey'
+      borderTop="1px solid lightgrey"
     >
       <Box>
-        <Link to='room'>Room</Link>
+        <Link to="/room">Room</Link>
       </Box>
       <Box>
-        <Link to='home'>Home</Link>
+        <Link to="home">Home</Link>
       </Box>
       <Box>
-        <Link to='private'>Private</Link>
+        <Link to="private">Private</Link>
       </Box>
     </Flex>
   );

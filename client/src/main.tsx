@@ -1,41 +1,41 @@
+import { ChakraProvider } from "@chakra-ui/react";
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App";
-import "./index.css";
-import { io, Socket } from "socket.io-client";
-import SocketProvider from "./context/SocketContext";
-import type {
-  ClientToServerEvents,
-  ServerToClientEvents,
-} from "../../server/src/communication";
-import { ChakraProvider } from "@chakra-ui/react";
-import theme from "./theme";
 import {
   createBrowserRouter,
   createRoutesFromElements,
   Route,
   RouterProvider,
 } from "react-router-dom";
-import StartPage from "./pages/StartPage";
+import { io, Socket } from "socket.io-client";
+import type {
+  ClientToServerEvents,
+  ServerToClientEvents,
+} from "../../server/src/communication";
+import App from "./App";
+import SocketProvider from "./context/SocketContext";
+import "./index.css";
 import HomePage from "./pages/HomePage";
-import RoomHomePage from "./pages/RoomHomePage";
-import PrivateHomePage from "./pages/PrivateHomePage";
-import RoomNewPage from "./pages/RoomNewPage";
-import RoomChat from "./pages/RoomChat";
-import PrivateNewPage from "./pages/PrivateNewPage";
 import PrivateChat from "./pages/PrivateChat";
+import PrivateHomePage from "./pages/PrivateHomePage";
+import PrivateNewPage from "./pages/PrivateNewPage";
+import RoomChat from "./pages/RoomChat";
+import RoomHomePage from "./pages/RoomHomePage";
+import RoomNewPage from "./pages/RoomNewPage";
+import StartPage from "./pages/StartPage";
+import theme from "./theme";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path='/' element={<App />}>
+    <Route path="/" element={<App />}>
       <Route index element={<StartPage />} />
-      <Route path='home' element={<HomePage />} />
-      <Route path='room' element={<RoomHomePage />} />
-      <Route path='room/new' element={<RoomNewPage />} />
-      <Route path='room/chat' element={<RoomChat />} />
-      <Route path='private' element={<PrivateHomePage />} />
-      <Route path='private/new' element={<PrivateNewPage />} />
-      <Route path='private/chat' element={<PrivateChat />} />
+      <Route path="home" element={<HomePage />} />
+      <Route path="/room" element={<RoomHomePage />} />
+      <Route path="room/new" element={<RoomNewPage />} />
+      <Route path="room/chat" element={<RoomChat />} />
+      <Route path="private" element={<PrivateHomePage />} />
+      <Route path="private/new" element={<PrivateNewPage />} />
+      <Route path="private/chat" element={<PrivateChat />} />
     </Route>
   )
 );
