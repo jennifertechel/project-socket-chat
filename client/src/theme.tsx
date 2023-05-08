@@ -17,8 +17,8 @@ const theme = extendTheme({
       400: "#B6CE9E",
       500: "#EDA876",
       600: "#EEECC0",
-      700: "#CA368F",
-      800: "#D59E9E",
+      700: "#D59E9E",
+      800: "#6B6262",
       900: "#C47F69",
       // 100 är färgen på chattrutorna
       // 700 är färgen på Chatropolis-texten
