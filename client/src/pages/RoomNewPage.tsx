@@ -1,7 +1,17 @@
-import { Flex, Input, Button, Heading, Image } from "@chakra-ui/react";
+import {
+  Flex,
+  Input,
+  Button,
+  Heading,
+  Image,
+  useMediaQuery,
+} from "@chakra-ui/react";
 import { useState } from "react";
 import { useSocket } from "../context/SocketContext";
 import { useNavigate } from "react-router-dom";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
+import LogoBox from "../components/LogoBox";
 
 function RoomNewPage() {
   const [room, setRoom] = useState("");
@@ -14,10 +24,14 @@ function RoomNewPage() {
     navigate("/room/chat");
   };
 
+  const [isMobile] = useMediaQuery("(max-width: 768px)");
+
   return (
     <Flex flexDir='column' justifyContent='center' alignItems='center' mt={20}>
-      <Image src='/assets/CHATROPOLIS.svg' />
-      <Image src='/assets/logoWithStamp.png' />
+      {!isMobile && <Header />}
+
+      {isMobile && <LogoBox />}
+
       <Heading as='h6'>What do you want to name your new room?</Heading>
       <form onSubmit={handleSubmit}>
         <Input
@@ -34,6 +48,7 @@ function RoomNewPage() {
           Create room
         </Button>
       </form>
+      {isMobile && <Footer />}
     </Flex>
   );
 }

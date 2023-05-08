@@ -5,9 +5,12 @@ import {
   Image,
   Text,
   useBreakpointValue,
+  useMediaQuery,
 } from "@chakra-ui/react";
 import Footer from "../components/Footer";
 import { useSocket } from "../context/SocketContext";
+import Header from "../components/Header";
+import LogoBox from "../components/LogoBox";
 
 function HomePage() {
   const { nickname } = useSocket();
@@ -19,23 +22,27 @@ function HomePage() {
     xl: "2xl",
   });
 
+  const [isMobile] = useMediaQuery("(max-width: 768px)");
+
   return (
-    <Flex justifyContent='center' alignItems='center'>
+    <Flex justifyContent='center' alignItems='center' minH='100vh'>
+      {!isMobile && <Header />}
+
       <Box
         boxSize={boxSize}
-        mt='100px'
         display='flex'
         flexDirection='column'
-        justifyContent='center'
         alignItems='center'
       >
-        <Image src='/assets/CHATROPOLIS.svg' />
-        <Image src='/assets/logoWithStamp.png' />
+        {isMobile && <LogoBox />}
 
         <Heading m='30px'>Welcome {nickname}!</Heading>
         <Text>Write something here and a little description</Text>
       </Box>
-      <Footer />
+      {isMobile && <Footer />}
+      {!isMobile && (
+        <Image src='/assets/city.svg' pos='absolute' bottom={0} right={0} />
+      )}
     </Flex>
   );
 }
