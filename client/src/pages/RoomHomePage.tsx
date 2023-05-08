@@ -6,10 +6,11 @@ import {
   Text,
   useBreakpointValue,
 } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
-import ActiveRooms from "../components/ActiveRooms";
-import { useSocket } from "../context/SocketContext";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import ActiveRooms from "../components/ActiveRooms";
+import Footer from "../components/Footer";
+import { useSocket } from "../context/SocketContext";
 
 function RoomHomePage() {
   const { nickname } = useSocket();
@@ -56,6 +57,7 @@ function RoomHomePage() {
       </Box>
 
       {showRooms && <ActiveRooms />}
+      <Footer />
     </Flex>
   );
 }
