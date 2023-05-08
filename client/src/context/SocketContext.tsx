@@ -20,6 +20,7 @@ interface ContextValues {
   room?: string;
   sendMessage: (nickname: string, message: string) => void;
   messages: Message[];
+  rooms: string[];
 }
 
 const SocketContext = createContext<ContextValues>(null as any);
@@ -28,6 +29,7 @@ export const useSocket = () => useContext(SocketContext);
 function SocketProvider({ children }: PropsWithChildren) {
   const [nickname, setNickname] = useState<string>("");
   const [room, setRoom] = useState<string>();
+  const [rooms, setRooms] = useState<string[]>([]); // Initialize 'rooms' state
 
   // const [isTyping, setIsTyping] = useState<boolean>(false);
   const [messages, setMessages] = useState<Message[]>([]);
@@ -72,8 +74,8 @@ function SocketProvider({ children }: PropsWithChildren) {
       setMessages((messages) => [...messages, { message }]);
     }
 
-    function rooms(rooms: string[]) {
-      console.log(rooms);
+    function updateRooms(rooms: string[]) {
+      setRooms(rooms);
     }
 
     // function startTyping() {
@@ -109,7 +111,7 @@ function SocketProvider({ children }: PropsWithChildren) {
     socket.on("connect", connect);
     socket.on("disconnect", disconnect);
     socket.on("message", message);
-    socket.on("rooms", rooms);
+    socket.on("rooms", updateRooms);
     // socket.on("start-typing", handleStartTyping);
     // socket.on("stop-typing", handleStopTyping);
 
@@ -117,7 +119,7 @@ function SocketProvider({ children }: PropsWithChildren) {
       socket.off("connect", connect);
       socket.off("disconnect", connect);
       socket.off("message", connect);
-      socket.off("rooms", rooms);
+      socket.off("rooms", updateRooms);
       // socket.off("start-typing", handleStartTyping);
       // socket.off("stop-typing", handleStopTyping);
     };
@@ -133,6 +135,7 @@ function SocketProvider({ children }: PropsWithChildren) {
         room,
         sendMessage,
         messages,
+        rooms,
       }}
     >
       {children}

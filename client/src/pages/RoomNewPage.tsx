@@ -1,17 +1,18 @@
 import { Flex, Input, Button, Heading, Image } from "@chakra-ui/react";
 import { useState } from "react";
 import { useSocket } from "../context/SocketContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 function RoomNewPage() {
   const [room, setRoom] = useState("");
   const { joinRoom } = useSocket();
   const navigate = useNavigate();
+  const { roomId } = useParams();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     joinRoom(room);
-    navigate("/room/chat");
+    navigate(`/room/${encodeURIComponent(room)}`);
   };
 
   return (
