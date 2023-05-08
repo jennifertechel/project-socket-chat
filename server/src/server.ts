@@ -17,8 +17,8 @@ io.on("connection", (socket) => {
   console.log("a user connected");
 
   //Lägg till nickname, så att det syns vem som skrivit, fick felmeddelande när jag la till socket.data.name
-  socket.on('message', (message) => {
-    io.emit('message', message);
+  socket.on('message', (nickname: string, message: string) => {
+    io.emit('message', nickname, message);
     console.log(message);
   });
 

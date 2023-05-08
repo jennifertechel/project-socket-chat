@@ -4,7 +4,7 @@ import { useSocket } from "../context/SocketContext";
 
 export default function MessageBox() {
   const [message, setMessage] = useState("");
-  const { sendMessage, messages } = useSocket();
+  const { sendMessage, messages, nickname } = useSocket();
 
   return (
     <>
@@ -26,7 +26,7 @@ export default function MessageBox() {
             fontWeight="bold"
             color="#6B6262"
           >
-            JennyW89
+            {nickname}
           </Text>
           <Text
             fontFamily="Montserrat"
