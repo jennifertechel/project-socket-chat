@@ -42,7 +42,7 @@ function RoomHomePage() {
         justifyContent="center"
         alignItems="center"
       >
-        <Image src="src/assets/CHATROPOLIS.svg" />
+        <Image src="src/assets/Colorlogo.svg" />
         <Image src="src/assets/logoWithStamp.png" />
 
         <Text m="30px">Welcome {nickname}!</Text>
