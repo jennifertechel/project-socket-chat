@@ -8,6 +8,7 @@ import {
 import { Socket, io } from "socket.io-client";
 import {
   ClientToServerEvents,
+  Message,
   ServerToClientEvents,
 } from "../../../server/src/communication";
 
@@ -17,6 +18,8 @@ interface ContextValues {
   handleSetNickname: () => void;
   joinRoom: (room: string) => void;
   room?: string;
+  sendMessage: (message: string) => void;
+  messages: Message[];
 }
 
 const SocketContext = createContext<ContextValues>(null as any);
@@ -26,6 +29,8 @@ function SocketProvider({ children }: PropsWithChildren) {
   const [nickname, setNickname] = useState<string>("");
   const [room, setRoom] = useState<string>();
 
+  // const [isTyping, setIsTyping] = useState<boolean>(false);
+  const [messages, setMessages] = useState<Message[]>([]);
   const [socket] = useState<Socket<ServerToClientEvents, ClientToServerEvents>>(
     io()
   );
@@ -50,6 +55,11 @@ function SocketProvider({ children }: PropsWithChildren) {
     };
   }, [socket, setNickname]);
 
+  //Lägg till room
+  const sendMessage = (message: string) => {
+    socket.emit("message", message);
+  };
+
   useEffect(() => {
     function connect() {
       console.log("Connected to server");
@@ -57,30 +67,72 @@ function SocketProvider({ children }: PropsWithChildren) {
     function disconnect() {
       console.log("Disconnected to server");
     }
-    function message() {
+    function message(message: string) {
       console.log(message);
+      setMessages((messages) => [...messages, { message }]);
     }
 
     function rooms(rooms: string[]) {
       console.log(rooms);
     }
 
+    // function startTyping() {
+    //   socket.emit("start-typing", nickname);
+    //   setIsTyping(true);
+    // }
+
+    // function stopTyping() {
+    //   socket.emit("stop-typing", nickname);
+    //   setIsTyping(false);
+    // }
+
+    // function handleStartTyping(nickname: string) {
+    //   console.log(`${nickname} is typing...`);
+    //   setIsTyping(true);
+    // }
+
+    // function handleStopTyping(nickname: string) {
+    //   console.log(`${nickname} stopped typing.`);
+    //   setIsTyping(false);
+    // }
+
+    // function handleTyping(event: React.ChangeEvent<HTMLInputElement>) {
+    //   const message = event.target.value;
+    //   setMessage(message);
+    //   if (message) {
+    //     startTyping();
+    //   } else {
+    //     stopTyping();
+    //   }
+    // }
+
     socket.on("connect", connect);
     socket.on("disconnect", disconnect);
     socket.on("message", message);
     socket.on("rooms", rooms);
+    // socket.on("start-typing", handleStartTyping);
+    // socket.on("stop-typing", handleStopTyping);
 
     return () => {
       socket.off("connect", connect);
       socket.off("disconnect", connect);
       socket.off("message", connect);
       socket.off("rooms", rooms);
+      // socket.off("start-typing", handleStartTyping);
+      // socket.off("stop-typing", handleStopTyping);
     };
   }, [socket]);
 
   return (
     <SocketContext.Provider
-      value={{ nickname, setNickname, handleSetNickname, joinRoom }}
+      value={{
+        nickname,
+        setNickname,
+        handleSetNickname,
+        joinRoom,
+        sendMessage,
+        messages,
+      }}
     >
       {children}
     </SocketContext.Provider>
