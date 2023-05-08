@@ -33,24 +33,24 @@ function RoomHomePage() {
   });
 
   return (
-    <Flex justifyContent="center" alignItems="center" flexDir="column">
+    <Flex justifyContent='center' alignItems='center' flexDir='column'>
       <Box
         boxSize={boxSize}
-        mt="100px"
-        display="flex"
-        flexDirection="column"
-        justifyContent="center"
-        alignItems="center"
+        mt='100px'
+        display='flex'
+        flexDirection='column'
+        justifyContent='center'
+        alignItems='center'
       >
-        <Image src="src/assets/Colorlogo.svg" />
-        <Image src="src/assets/logoWithStamp.png" />
+        <Image src='/assets/CHATROPOLIS.svg' />
+        <Image src='/assets/logoWithStamp.png' />
 
-        <Text m="30px">Welcome {nickname}!</Text>
-        <Flex flexDirection="row" gap="10px">
-          <Button mt="20px" onClick={handleNewRoom}>
+        <Text m='30px'>Welcome {nickname}!</Text>
+        <Flex flexDirection='row' gap='10px'>
+          <Button mt='20px' onClick={handleNewRoom}>
             New Room
           </Button>
-          <Button mt="20px" onClick={toggleShowRooms}>
+          <Button mt='20px' onClick={toggleShowRooms}>
             Join Room
           </Button>
         </Flex>

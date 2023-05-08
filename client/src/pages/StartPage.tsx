@@ -31,27 +31,27 @@ function StartPage() {
   });
 
   return (
-    <Flex justifyContent="center" alignItems="center">
+    <Flex justifyContent='center' alignItems='center'>
       <Box
         boxSize={boxSize}
-        mt="100px"
-        display="flex"
-        flexDirection="column"
-        justifyContent="center"
-        alignItems="center"
+        mt='100px'
+        display='flex'
+        flexDirection='column'
+        justifyContent='center'
+        alignItems='center'
       >
-        <Image src="src/assets/Colorlogo.svg" />
-        <Image src="src/assets/Colorlogo.svg" />
-        <Text m="30px">Enter nickname</Text>
+        <Image src='/assets/CHATROPOLIS.svg' />
+        <Image src='/assets/logoWithStamp.png' />
+        <Text m='30px'>Enter nickname</Text>
         <Input
-          placeholder="Nickname"
+          placeholder='Nickname'
           value={nickname}
           onChange={handleNicknameChange}
-          variant="flushed"
-          width="auto"
-          textAlign="center"
+          variant='flushed'
+          width='auto'
+          textAlign='center'
         ></Input>
-        <Button mt="20px" onClick={handleSubmit}>
+        <Button mt='20px' onClick={handleSubmit}>
           Let's Chat!
         </Button>
       </Box>

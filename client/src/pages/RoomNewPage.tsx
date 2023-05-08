@@ -16,8 +16,8 @@ function RoomNewPage() {
 
   return (
     <Flex flexDir='column' justifyContent='center' alignItems='center' mt={20}>
-      <Image src='src/assets/CHATROPOLIS.svg' />
-      <Image src='src/assets/logoWithStamp.png' />
+      <Image src='/assets/CHATROPOLIS.svg' />
+      <Image src='/assets/logoWithStamp.png' />
       <Heading as='h6'>What do you want to name your new room?</Heading>
       <form onSubmit={handleSubmit}>
         <Input
