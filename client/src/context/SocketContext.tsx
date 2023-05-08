@@ -18,7 +18,7 @@ interface ContextValues {
   handleSetNickname: () => void;
   joinRoom: (room: string) => void;
   room?: string;
-  sendMessage: (message: string) => void;
+  sendMessage: (nickname: string, message: string) => void;
   messages: Message[];
 }
 
@@ -56,8 +56,8 @@ function SocketProvider({ children }: PropsWithChildren) {
   }, [socket, setNickname]);
 
   //Lägg till room
-  const sendMessage = (message: string) => {
-    socket.emit("message", message);
+  const sendMessage = (nickname: string, message: string) => {
+    socket.emit("message", nickname, message);
   };
 
   useEffect(() => {
