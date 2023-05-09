@@ -35,7 +35,10 @@ function RoomNewPage() {
       {isMobile && <LogoBox />}
       <Box>
         <Link to="/room">
-          <Image src="/assets/goBackButton.svg" right="0" />
+          <Image
+            src="/assets/goBackButton.svg"
+            style={{ position: "absolute", left: 0 }}
+          />
         </Link>
       </Box>
       <Heading as="h6">What do you want to name your new room?</Heading>
