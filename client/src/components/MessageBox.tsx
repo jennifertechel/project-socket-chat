@@ -27,6 +27,7 @@ export default function MessageBox() {
                       fontFamily="Montserrat"
                       fontSize="0.8rem"
                       fontWeight="bold"
+                      mt="0.5rem"
                       color="#6B6262"
                     >
                       {message.nickname}
