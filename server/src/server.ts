@@ -42,16 +42,7 @@ io.on("connection", (socket) => {
     // Get the nickname from the socket object's data property
     const nickname = socket.data.nickname;
     console.log(`User ${nickname} disconnected`);
-  });
-
-  socket.on("startTyping", (nickname: string) => {
-    startTyping(nickname);
-  });
-
-  socket.on("stopTyping", (nickname: string) => {
-    stopTyping(nickname);
-  });
-  
+  });  
 });
 
 function getRooms() {
@@ -70,11 +61,5 @@ function getRooms() {
 
 io.listen(3000);
 console.log("listening on port 3000");
-function startTyping(nickname: string) {
-  throw new Error("Function not implemented.");
-}
 
-function stopTyping(nickname: string) {
-  throw new Error("Function not implemented.");
-}
 

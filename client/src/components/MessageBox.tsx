@@ -4,8 +4,9 @@ import { useSocket } from "../context/SocketContext";
 
 export default function MessageBox() {
   const [message, setMessage] = useState("");
-  const { sendMessage, messages, typingUsers, nickname } = useSocket();
-  // const [isTyping, setIsTyping] = useState(false);
+  const { sendMessage, messages, nickname, startTyping, stopTyping } =
+    useSocket();
+  const [isTyping, setIsTyping] = useState(false);
 
   return (
     <>
@@ -43,16 +44,7 @@ export default function MessageBox() {
       </Flex>
 
       {/* Här syns om en användare skriver eller inte */}
-      <Box>
-        {" "}
-        {typingUsers.length > 0 && (
-          <div>
-            {typingUsers.map((username) => (
-              <div key={username}>{username} is typing...</div>
-            ))}
-          </div>
-        )}
-      </Box>
+      <Box>{isTyping && <Text>{nickname} is typing...</Text>}</Box>
     </>
   );
 }

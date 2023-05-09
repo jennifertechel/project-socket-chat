@@ -1,29 +1,29 @@
 import { Box, Button, Flex, FormControl, Input } from "@chakra-ui/react";
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { Form } from "react-router-dom";
 import { useSocket } from "../context/SocketContext";
-import { socket } from "../main";
 
 export default function MessageInput() {
   const [message, setMessage] = useState("");
-  const { sendMessage, nickname } = useSocket();
+  const { sendMessage, nickname, startTyping, stopTyping } = useSocket();
   const [isTyping, setIsTyping] = useState(false);
+
+  const handleMessageChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setMessage(event.target.value);
+    if (event.target.value) {
+      startTyping(nickname);
+      setIsTyping(true);
+    } else {
+      stopTyping(nickname);
+      setIsTyping(false);
+    }
+  };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     sendMessage(message);
     setMessage("");
   };
-
-  function handleInput(event: React.ChangeEvent<HTMLTextAreaElement>) {
-    const { value } = event.target;
-    setIsTyping(value !== "");
-    if (value !== "") {
-      socket.emit("startTyping", nickname);
-    } else {
-      socket.emit("stopTyping", nickname);
-    }
-  }
 
   return (
     <>
@@ -38,7 +38,7 @@ export default function MessageInput() {
                 value={message}
                 onChange={(e) => {
                   setMessage(e.target.value);
-                  handleInput;
+                  handleMessageChange(e);
                 }}
                 fontSize="0.8rem"
               />
