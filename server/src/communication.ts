@@ -23,5 +23,6 @@ export interface SocketData {
 
 //ska även ha name: string;
 export interface Message {
+  nickname: string;
   message: string;
 }

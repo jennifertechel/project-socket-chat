@@ -18,13 +18,15 @@ interface ContextValues {
   handleSetNickname: () => void;
   joinRoom: (room: string) => void;
   room?: string;
-  sendMessage: (nickname: string, message: string) => void;
+  sendMessage: (message: string) => void;
   messages: Message[];
   rooms: string[];
 }
 
 const SocketContext = createContext<ContextValues>(null as any);
 export const useSocket = () => useContext(SocketContext);
+
+const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io();
 
 function SocketProvider({ children }: PropsWithChildren) {
   const [nickname, setNickname] = useState<string>("");
@@ -33,9 +35,6 @@ function SocketProvider({ children }: PropsWithChildren) {
 
   // const [isTyping, setIsTyping] = useState<boolean>(false);
   const [messages, setMessages] = useState<Message[]>([]);
-  const [socket] = useState<Socket<ServerToClientEvents, ClientToServerEvents>>(
-    io()
-  );
 
   const joinRoom = (room: string) => {
     socket.emit("join", room, () => {
@@ -58,7 +57,7 @@ function SocketProvider({ children }: PropsWithChildren) {
   }, [socket, setNickname]);
 
   //Lägg till room
-  const sendMessage = (nickname: string, message: string) => {
+  const sendMessage = (message: string) => {
     socket.emit("message", nickname, message);
   };
 
@@ -69,9 +68,9 @@ function SocketProvider({ children }: PropsWithChildren) {
     function disconnect() {
       console.log("Disconnected to server");
     }
-    function message(message: string) {
-      console.log(message);
-      setMessages((messages) => [...messages, { message }]);
+    function message(nickname: string, message: string) {
+      console.log(nickname, message);
+      setMessages((messages) => [...messages, { nickname, message }]);
     }
 
     function updateRooms(rooms: string[]) {
@@ -117,13 +116,13 @@ function SocketProvider({ children }: PropsWithChildren) {
 
     return () => {
       socket.off("connect", connect);
-      socket.off("disconnect", connect);
-      socket.off("message", connect);
+      socket.off("disconnect", disconnect);
+      socket.off("message", message);
       socket.off("rooms", updateRooms);
       // socket.off("start-typing", handleStartTyping);
       // socket.off("stop-typing", handleStopTyping);
     };
-  }, [socket]);
+  }, []);
 
   return (
     <SocketContext.Provider
