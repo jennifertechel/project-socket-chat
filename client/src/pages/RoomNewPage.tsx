@@ -5,10 +5,13 @@ import {
   Heading,
   Image,
   useMediaQuery,
+  Box,
+  Text,
+  useBreakpointValue,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { useSocket } from "../context/SocketContext";
-import { useNavigate, useParams } from "react-router-dom";
+import { Form, useNavigate, useParams } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import LogoBox from "../components/LogoBox";
@@ -17,24 +20,33 @@ function RoomNewPage() {
   const [room, setRoom] = useState("");
   const { joinRoom } = useSocket();
   const navigate = useNavigate();
-  const { roomId } = useParams();
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleSubmit = () => {
     joinRoom(room);
     navigate(`/room/${encodeURIComponent(room)}`);
   };
 
+  const boxSize = useBreakpointValue({
+    base: "sm",
+    md: "md",
+    lg: "lg",
+    xl: "2xl",
+  });
+
   const [isMobile] = useMediaQuery("(max-width: 768px)");
 
   return (
-    <Flex flexDir='column' justifyContent='center' alignItems='center' mt={20}>
+    <Flex
+      flexDir='column'
+      alignItems='center'
+      minH='100vh'
+      justifyContent='center'
+    >
       {!isMobile && <Header />}
 
       {isMobile && <LogoBox />}
-
-      <Heading as='h6'>What do you want to name your new room?</Heading>
-      <form onSubmit={handleSubmit}>
+      <Text textAlign='center'>What do you want to name your new room?</Text>
+      <Flex flexDir='column'>
         <Input
           placeholder='Title here..'
           variant='flushed'
@@ -45,11 +57,14 @@ function RoomNewPage() {
           value={room}
           onChange={(e) => setRoom(e.target.value)}
         ></Input>
-        <Button mt={4} type='submit'>
+        <Button mt={4} onClick={handleSubmit}>
           Create room
         </Button>
-      </form>
+      </Flex>
       {isMobile && <Footer />}
+      {!isMobile && (
+        <Image src='/assets/city.svg' pos='absolute' bottom={0} right={0} />
+      )}
     </Flex>
   );
 }

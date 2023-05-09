@@ -28,38 +28,29 @@ function StartPage() {
 
   const [isMobile] = useMediaQuery("(max-width: 768px)");
 
-  const boxSize = useBreakpointValue({
-    base: "sm",
-    md: "md",
-    lg: "lg",
-    xl: "2xl",
-  });
-
   return (
-    <Flex justifyContent='center' alignItems='center' minH='100vh'>
+    <Flex
+      flexDir='column'
+      alignItems='center'
+      minH='100vh'
+      justifyContent={{ base: "center", md: "normal" }}
+      pt={{ base: 0, md: 40 }}
+    >
       {!isMobile && <Header />}
+      {isMobile && <LogoBox />}
 
-      <Box
-        boxSize={boxSize}
-        display='flex'
-        flexDirection='column'
-        alignItems='center'
-      >
-        {isMobile && <LogoBox />}
-
-        <Text m='30px'>Enter nickname</Text>
-        <Input
-          placeholder='Nickname'
-          value={nickname}
-          onChange={handleNicknameChange}
-          variant='flushed'
-          width='auto'
-          textAlign='center'
-        ></Input>
-        <Button mt='20px' onClick={handleSubmit}>
-          Let's Chat!
-        </Button>
-      </Box>
+      <Text m='30px'>Enter nickname</Text>
+      <Input
+        placeholder='Nickname'
+        value={nickname}
+        onChange={handleNicknameChange}
+        variant='flushed'
+        width='auto'
+        textAlign='center'
+      ></Input>
+      <Button mt='20px' onClick={handleSubmit}>
+        Let's Chat!
+      </Button>
 
       {!isMobile && <Header />}
       {!isMobile && (
