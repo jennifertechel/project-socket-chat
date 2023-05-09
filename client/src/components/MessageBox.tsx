@@ -9,30 +9,32 @@ export default function MessageBox() {
   return (
     <>
       <Flex
-        bg='#F5F5F5'
-        mt='1rem'
-        w='345px'
-        ml='0.5rem'
-        align='center'
-        alignItems='flex-start'
+        bg="#F5F5F5"
+        mb="1rem"
+        w="345px"
+        ml="0.5rem"
+        align="center"
+        alignItems="flex-start"
       >
         <ul style={{ listStyleType: "none" }}>
           {messages.map((message, i) => (
-            <li key={i}>
-              <Avatar bg='brand.700' />
-              <Box bg='#F5F5F5'>
-                <Text
-                  fontFamily='Montserrat'
-                  fontSize='0.8rem'
-                  ml='0.5rem'
-                  mt='0.3rem'
-                  fontWeight='bold'
-                  color='#6B6262'
-                >
-                  {message.nickname}
-                </Text>
-              </Box>
-              <Text>{message.message}</Text>
+            <li key={i} style={{ marginBottom: "1rem" }}>
+              <Flex alignItems="center">
+                <Avatar bg="brand.700" />
+                <Box ml="0.5rem" bg="#F5F5F5">
+                  <Flex flexDirection="column">
+                    <Text
+                      fontFamily="Montserrat"
+                      fontSize="0.8rem"
+                      fontWeight="bold"
+                      color="#6B6262"
+                    >
+                      {message.nickname}
+                    </Text>
+                    <Text>{message.message}</Text>
+                  </Flex>
+                </Box>
+              </Flex>
             </li>
           ))}
         </ul>
