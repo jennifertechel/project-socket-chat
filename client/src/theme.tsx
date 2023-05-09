@@ -12,17 +12,14 @@ const theme = extendTheme({
   colors: {
     brand: {
       100: "#F5F5F5",
-      200: "#D14F9D",
+      200: "#9AB2AB", // green
       300: "#9EC5CE",
       400: "#B6CE9E",
       500: "#EDA876",
       600: "#EEECC0",
-      700: "#D59E9E",
+      700: "#D59E9E", // rosa
       800: "#6B6262",
-      900: "#C47F69",
-      // 100 är färgen på chattrutorna
-      // 700 är färgen på Chatropolis-texten
-      // 800 är textfärgen
+      900: "#C47F69", // brun - logga färg
     },
   },
 
