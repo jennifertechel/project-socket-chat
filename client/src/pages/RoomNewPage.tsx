@@ -33,14 +33,7 @@ function RoomNewPage() {
       {!isMobile && <Header />}
 
       {isMobile && <LogoBox />}
-      <Box>
-        <Link to="/room">
-          <Image
-            src="/assets/goBackButton.svg"
-            style={{ position: "absolute", left: 0 }}
-          />
-        </Link>
-      </Box>
+
       <Heading as="h6">What do you want to name your new room?</Heading>
       <form onSubmit={handleSubmit}>
         <Input
@@ -56,6 +49,14 @@ function RoomNewPage() {
         <Button mt={4} type="submit">
           Create room
         </Button>
+        <Box>
+          <Link to="/room">
+            <Image
+              src="/assets/goBackButton.svg"
+              style={{ position: "absolute", left: 0 }}
+            />
+          </Link>
+        </Box>
       </form>
       {isMobile && <Footer />}
     </Flex>
