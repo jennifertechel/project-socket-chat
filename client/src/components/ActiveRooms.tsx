@@ -6,13 +6,12 @@ function ActiveRooms() {
   const { joinRoom, rooms } = useSocket();
 
   return (
-    <Box w='90%'>
+    <Box w='90%' mt={6}>
       <Box
         background='#B6CE9E'
-        p='1px 10px'
+        py={2}
         alignItems='center'
         justifyContent='center'
-        mt='20px'
       >
         <Text textAlign='center'>Active Rooms</Text>
       </Box>

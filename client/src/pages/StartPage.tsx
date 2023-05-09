@@ -6,9 +6,12 @@ import {
   Input,
   Text,
   useBreakpointValue,
+  useMediaQuery,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { useSocket } from "../context/SocketContext";
+import LogoBox from "../components/LogoBox";
+import Header from "../components/Header";
 
 function StartPage() {
   const { handleSetNickname, setNickname, nickname } = useSocket();
@@ -23,6 +26,8 @@ function StartPage() {
     setNickname(event.target.value);
   }
 
+  const [isMobile] = useMediaQuery("(max-width: 768px)");
+
   const boxSize = useBreakpointValue({
     base: "sm",
     md: "md",
@@ -31,17 +36,17 @@ function StartPage() {
   });
 
   return (
-    <Flex justifyContent='center' alignItems='center'>
+    <Flex justifyContent='center' alignItems='center' minH='100vh'>
+      {!isMobile && <Header />}
+
       <Box
         boxSize={boxSize}
-        mt='100px'
         display='flex'
         flexDirection='column'
-        justifyContent='center'
         alignItems='center'
       >
-        <Image src='/assets/CHATROPOLIS.svg' />
-        <Image src='/assets/logoWithStamp.png' />
+        {isMobile && <LogoBox />}
+
         <Text m='30px'>Enter nickname</Text>
         <Input
           placeholder='Nickname'
@@ -55,6 +60,11 @@ function StartPage() {
           Let's Chat!
         </Button>
       </Box>
+
+      {!isMobile && <Header />}
+      {!isMobile && (
+        <Image src='/assets/city.svg' pos='absolute' bottom={0} right={0} />
+      )}
     </Flex>
   );
 }

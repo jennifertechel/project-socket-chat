@@ -1,29 +1,30 @@
-import { Box, Image, Text } from "@chakra-ui/react";
+import { Box, Flex, Image, Text, useMediaQuery } from "@chakra-ui/react";
 import MessageBox from "../components/MessageBox";
 import MessageInput from "../components/MessageInput";
 import { useSocket } from "../context/SocketContext";
+import Header from "../components/Header";
 import { useParams } from "react-router-dom";
 
 function RoomChat() {
   const { roomId } = useParams();
 
+  const [isMobile] = useMediaQuery("(max-width: 768px)");
+
   return (
-    <Box
+    <Flex
       h='100vh'
-      display='flex'
       flexDirection='column'
       justifyContent='center'
       alignItems='center'
     >
-      <Box w='345px' h='150px' mb='2rem'>
-        <Image h='150px' src='/assets/logoWithStamp.png' />
+      {!isMobile && <Header />}
+      <Box w='20%'>
+        <Image src='/assets/city.svg' />
       </Box>
-
       <Box
-        bg='#D14F9D'
+        bg='brand.900'
         w='345px'
         h='50px'
-        border='1px'
         textAlign='center'
         lineHeight='2.8rem'
         mb='2rem'
@@ -34,7 +35,7 @@ function RoomChat() {
       </Box>
       <MessageBox />
       <MessageInput />
-    </Box>
+    </Flex>
   );
 }
 
