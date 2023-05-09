@@ -3,6 +3,7 @@ import {
   Button,
   Flex,
   Heading,
+  Image,
   Input,
   useMediaQuery,
 } from "@chakra-ui/react";
@@ -33,7 +34,9 @@ function RoomNewPage() {
 
       {isMobile && <LogoBox />}
       <Box>
-        <Link to="/room">Back to room</Link>
+        <Link to="/room">
+          <Image src="/assets/goBackButton.svg" right="0" />
+        </Link>
       </Box>
       <Heading as="h6">What do you want to name your new room?</Heading>
       <form onSubmit={handleSubmit}>
