@@ -18,7 +18,7 @@ export default function MessageBox() {
       >
         <ul style={{ listStyleType: "none" }}>
           {messages.map((message, i) => (
-            <li key={i} style={{ marginBottom: "1rem" }}>
+            <li key={i}>
               <Flex alignItems="center">
                 <Avatar bg="brand.700" />
                 <Box ml="0.5rem" bg="#F5F5F5">
@@ -32,6 +32,7 @@ export default function MessageBox() {
                       {message.nickname}
                     </Text>
                     <Text>{message.message}</Text>
+                    <Box h="1rem" color="white"></Box>
                   </Flex>
                 </Box>
               </Flex>
