@@ -35,6 +35,7 @@ function SocketProvider({ children }: PropsWithChildren) {
   const [room, setRoom] = useState<string>();
   const [rooms, setRooms] = useState<string[]>([]); // Initialize 'rooms' state
   const [messages, setMessages] = useState<Message[]>([]);
+  const [usersTyping, setUsersTyping] = useState<string[]>([]);
 
   const joinRoom = (room: string) => {
     socket.emit("join", room, () => {
@@ -68,6 +69,12 @@ function SocketProvider({ children }: PropsWithChildren) {
   const stopTyping = (nickname: string) => {
     socket.emit("stopTyping", nickname);
   };
+
+  const usersTypingNew = usersTyping.includes(nickname)
+    ? usersTyping
+    : [...usersTyping, nickname];
+
+  setUsersTyping(usersTypingNew);
 
   useEffect(() => {
     function connect() {

@@ -38,6 +38,14 @@ io.on("connection", (socket) => {
   // When a new user connects send the list of rooms
   socket.emit("rooms", getRooms());
 
+  socket.on("startTyping", (nickname: string) => {
+    socket.broadcast.emit("startTyping", nickname);
+  });
+  
+  socket.on("stopTyping", (nickname: string) => {
+    socket.broadcast.emit("stopTyping", nickname);
+  });
+
   socket.on("disconnect", () => {
     // Get the nickname from the socket object's data property
     const nickname = socket.data.nickname;

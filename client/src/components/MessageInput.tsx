@@ -12,10 +12,8 @@ export default function MessageInput() {
     setMessage(event.target.value);
     if (event.target.value) {
       startTyping(nickname);
-      setIsTyping(true);
     } else {
       stopTyping(nickname);
-      setIsTyping(false);
     }
   };
 
