@@ -1,8 +1,8 @@
 import {
-  Box,
   Button,
+  Center,
+  Container,
   Flex,
-  Heading,
   Image,
   Text,
   useBreakpointValue,
@@ -10,52 +10,34 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import ActiveRooms from "../components/ActiveRooms";
 import Footer from "../components/Footer";
-import { useSocket } from "../context/SocketContext";
 import Header from "../components/Header";
 import LogoBox from "../components/LogoBox";
+import ActiveRoomsModal from "../components/ActiveRooms";
 
 function RoomHomePage() {
-  const { nickname } = useSocket();
-  const [showRooms, setShowRooms] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
-
-  const toggleShowRooms = () => {
-    setShowRooms((prevState) => !prevState);
-  };
 
   const handleNewRoom = () => {
     navigate("/room/new");
   };
-
-  const boxSize = useBreakpointValue({
-    base: "sm",
-    md: "md",
-    lg: "lg",
-    xl: "2xl",
-  });
 
   const [isMobile] = useMediaQuery("(max-width: 768px)");
 
   return (
     <>
       <Flex
-        justifyContent='center'
-        alignItems='center'
         flexDir='column'
+        alignItems='center'
         minH='100vh'
+        justifyContent={{ base: "center", md: "normal" }}
+        pt={{ base: 0, md: 40 }}
       >
-        {!isMobile && <Header />}
+        <Flex flexDir='column' alignItems='center' justifyContent='center'>
+          {!isMobile && <Header />}
 
-        <Box
-          boxSize={boxSize}
-          display='flex'
-          flexDirection='column'
-          alignItems='center'
-        >
           {isMobile && <LogoBox />}
-
           <Text m='30px' textAlign='center'>
             Create a new chatroom to share your urban passions or browse
             existing rooms to join fascinating discussions about cities and
@@ -65,17 +47,20 @@ function RoomHomePage() {
             <Button mt='20px' onClick={handleNewRoom}>
               New Room
             </Button>
-            <Button mt='20px' onClick={toggleShowRooms}>
+            <Button mt='20px' onClick={() => setIsModalOpen(true)}>
               View Rooms
             </Button>
           </Flex>
-          {showRooms && <ActiveRooms />}
-        </Box>
+        </Flex>
       </Flex>
       {!isMobile && (
         <Image src='/assets/city.svg' pos='absolute' bottom={0} right={0} />
       )}
       {isMobile && <Footer />}
+      <ActiveRoomsModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
     </>
   );
 }
