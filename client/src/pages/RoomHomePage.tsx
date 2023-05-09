@@ -56,7 +56,11 @@ function RoomHomePage() {
         >
           {isMobile && <LogoBox />}
 
-          <Text m='30px'>Welcome {nickname}!</Text>
+          <Text m='30px' textAlign='center'>
+            Create a new chatroom to share your urban passions or browse
+            existing rooms to join fascinating discussions about cities and
+            travel.
+          </Text>
           <Flex flexDirection='row' gap='10px'>
             <Button mt='20px' onClick={handleNewRoom}>
               New Room
@@ -65,14 +69,13 @@ function RoomHomePage() {
               View Rooms
             </Button>
           </Flex>
+          {showRooms && <ActiveRooms />}
         </Box>
-
-        {showRooms && <ActiveRooms />}
-        {isMobile && <Footer />}
       </Flex>
       {!isMobile && (
         <Image src='/assets/city.svg' pos='absolute' bottom={0} right={0} />
       )}
+      {isMobile && <Footer />}
     </>
   );
 }

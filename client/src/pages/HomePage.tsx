@@ -37,7 +37,12 @@ function HomePage() {
         {isMobile && <LogoBox />}
 
         <Heading m='30px'>Welcome {nickname}!</Heading>
-        <Text>Write something here and a little description</Text>
+        <Text textAlign='center'>
+          To the ultimate destination for all things cities and travel! Whether
+          you're a passionate globetrotter, an aspiring explorer, or simply
+          someone curious about different cultures and urban wonders, you've
+          come to the right place.
+        </Text>
       </Box>
       {isMobile && <Footer />}
       {!isMobile && (
