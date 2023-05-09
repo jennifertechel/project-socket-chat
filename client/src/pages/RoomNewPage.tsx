@@ -2,17 +2,13 @@ import {
   Flex,
   Input,
   Button,
-  Heading,
   Image,
   useMediaQuery,
-  Box,
   Text,
-  useBreakpointValue,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { useSocket } from "../context/SocketContext";
-import { Form, useNavigate, useParams } from "react-router-dom";
-import Header from "../components/Header";
+import { useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
 import LogoBox from "../components/LogoBox";
 
@@ -20,32 +16,25 @@ function RoomNewPage() {
   const [room, setRoom] = useState("");
   const { joinRoom } = useSocket();
   const navigate = useNavigate();
+  const [isMobile] = useMediaQuery("(max-width: 768px)");
 
   const handleSubmit = () => {
     joinRoom(room);
     navigate(`/room/${encodeURIComponent(room)}`);
   };
 
-  const boxSize = useBreakpointValue({
-    base: "sm",
-    md: "md",
-    lg: "lg",
-    xl: "2xl",
-  });
-
-  const [isMobile] = useMediaQuery("(max-width: 768px)");
-
   return (
     <Flex
       flexDir='column'
-      alignItems='center'
-      minH='100vh'
       justifyContent='center'
+      alignItems='center'
+      w={{ base: "95%", md: "50%" }}
+      mt={{ base: 0, md: -36 }}
     >
-      {!isMobile && <Header />}
-
       {isMobile && <LogoBox />}
-      <Text textAlign='center'>What do you want to name your new room?</Text>
+      <Text my={6} textAlign='center'>
+        What do you want to name your new room?
+      </Text>
       <Flex flexDir='column'>
         <Input
           placeholder='Title here..'
@@ -57,7 +46,18 @@ function RoomNewPage() {
           value={room}
           onChange={(e) => setRoom(e.target.value)}
         ></Input>
-        <Button mt={4} onClick={handleSubmit}>
+        <Button
+          bg='none'
+          border='solid 1px'
+          borderRadius='none'
+          borderColor='brand.800'
+          color='brand.800'
+          fontWeight='medium'
+          fontSize='smaller'
+          _hover={{ bg: "brand.200", borderColor: "brand.200" }}
+          mt={4}
+          onClick={handleSubmit}
+        >
           Create room
         </Button>
       </Flex>

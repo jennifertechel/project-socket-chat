@@ -29,28 +29,45 @@ function RoomHomePage() {
     <>
       <Flex
         flexDir='column'
+        justifyContent='center'
         alignItems='center'
-        minH='100vh'
-        justifyContent={{ base: "center", md: "normal" }}
-        pt={{ base: 0, md: 40 }}
+        w={{ base: "95%", md: "50%" }}
+        mt={{ base: 0, md: -36 }}
       >
-        <Flex flexDir='column' alignItems='center' justifyContent='center'>
-          {!isMobile && <Header />}
-
-          {isMobile && <LogoBox />}
-          <Text m='30px' textAlign='center'>
-            Create a new chatroom to share your urban passions or browse
-            existing rooms to join fascinating discussions about cities and
-            travel.
-          </Text>
-          <Flex flexDirection='row' gap='10px'>
-            <Button mt='20px' onClick={handleNewRoom}>
-              New Room
-            </Button>
-            <Button mt='20px' onClick={() => setIsModalOpen(true)}>
-              View Rooms
-            </Button>
-          </Flex>
+        {isMobile && <LogoBox />}
+        <Text my={6} textAlign='center'>
+          Create a new chatroom to share your urban passions or browse existing
+          rooms to join fascinating discussions about cities and travel.
+        </Text>
+        <Flex flexDirection='row' gap='10px'>
+          <Button
+            mt='20px'
+            bg='none'
+            border='solid 1px'
+            borderRadius='none'
+            borderColor='brand.800'
+            color='brand.800'
+            fontWeight='medium'
+            fontSize='smaller'
+            _hover={{ bg: "brand.200", borderColor: "brand.200" }}
+            onClick={handleNewRoom}
+          >
+            New Room
+          </Button>
+          <Button
+            mt='20px'
+            bg='none'
+            border='solid 1px'
+            borderRadius='none'
+            borderColor='brand.800'
+            color='brand.800'
+            fontWeight='medium'
+            fontSize='smaller'
+            _hover={{ bg: "brand.200", borderColor: "brand.200" }}
+            onClick={() => setIsModalOpen(true)}
+          >
+            View Rooms
+          </Button>
         </Flex>
       </Flex>
       {!isMobile && (
