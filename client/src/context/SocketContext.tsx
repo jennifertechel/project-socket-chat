@@ -21,6 +21,7 @@ interface ContextValues {
   sendMessage: (message: string) => void;
   messages: Message[];
   rooms: string[];
+  typingUsers: string[];
 }
 
 const SocketContext = createContext<ContextValues>(null as any);
@@ -32,8 +33,7 @@ function SocketProvider({ children }: PropsWithChildren) {
   const [nickname, setNickname] = useState<string>("");
   const [room, setRoom] = useState<string>();
   const [rooms, setRooms] = useState<string[]>([]); // Initialize 'rooms' state
-
-  // const [isTyping, setIsTyping] = useState<boolean>(false);
+  const [typingUsers, setTypingUsers] = useState<string[]>([]);
   const [messages, setMessages] = useState<Message[]>([]);
 
   const joinRoom = (room: string) => {
@@ -77,50 +77,31 @@ function SocketProvider({ children }: PropsWithChildren) {
       setRooms(rooms);
     }
 
-    // function startTyping() {
-    //   socket.emit("start-typing", nickname);
-    //   setIsTyping(true);
-    // }
+    function typing(nickname: string) {
+      setTypingUsers((typingUsers) => [...typingUsers, nickname]);
+    }
 
-    // function stopTyping() {
-    //   socket.emit("stop-typing", nickname);
-    //   setIsTyping(false);
-    // }
-
-    // function handleStartTyping(nickname: string) {
-    //   console.log(`${nickname} is typing...`);
-    //   setIsTyping(true);
-    // }
-
-    // function handleStopTyping(nickname: string) {
-    //   console.log(`${nickname} stopped typing.`);
-    //   setIsTyping(false);
-    // }
-
-    // function handleTyping(event: React.ChangeEvent<HTMLInputElement>) {
-    //   const message = event.target.value;
-    //   setMessage(message);
-    //   if (message) {
-    //     startTyping();
-    //   } else {
-    //     stopTyping();
-    //   }
-    // }
+    function stopTyping(nickname: string) {
+      setTypingUsers((typingUsers) =>
+        typingUsers.filter((user) => user !== nickname)
+      );
+    }
 
     socket.on("connect", connect);
     socket.on("disconnect", disconnect);
     socket.on("message", message);
     socket.on("rooms", updateRooms);
-    // socket.on("start-typing", handleStartTyping);
-    // socket.on("stop-typing", handleStopTyping);
+    socket.on("rooms", updateRooms);
+    socket.on("startTyping", typing);
+    socket.on("stopTyping", stopTyping);
 
     return () => {
       socket.off("connect", connect);
       socket.off("disconnect", disconnect);
       socket.off("message", message);
       socket.off("rooms", updateRooms);
-      // socket.off("start-typing", handleStartTyping);
-      // socket.off("stop-typing", handleStopTyping);
+      socket.on("startTyping", typing);
+      socket.on("stopTyping", stopTyping);
     };
   }, []);
 
@@ -135,6 +116,7 @@ function SocketProvider({ children }: PropsWithChildren) {
         sendMessage,
         messages,
         rooms,
+        typingUsers,
       }}
     >
       {children}

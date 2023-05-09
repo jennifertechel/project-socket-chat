@@ -16,7 +16,6 @@ const io = new Server<
 io.on("connection", (socket) => {
   console.log("a user connected");
 
-  //Lägg till nickname, så att det syns vem som skrivit, fick felmeddelande när jag la till socket.data.name
   socket.on("message", (nickname: string, message: string) => {
     io.emit("message", nickname, message);
     console.log(nickname, message);
@@ -45,23 +44,14 @@ io.on("connection", (socket) => {
     console.log(`User ${nickname} disconnected`);
   });
 
-  // socket.on("start-typing", () => {
-  //   // Get the nickname from the socket object's data property
-  //   const nickname = socket.data.nickname;
-  //   console.log(`User ${nickname} started typing`);
+  socket.on("startTyping", (nickname: string) => {
+    startTyping(nickname);
+  });
 
-  //   // Emit "start-typing" event to all other clients except the one who triggered the event
-  //   socket.broadcast.emit("start-typing", nickname);
-  // });
-
-  // socket.on("stop-typing", () => {
-  //   // Get the nickname from the socket object's data property
-  //   const nickname = socket.data.nickname;
-  //   console.log(`User ${nickname} stopped typing`);
-
-  //   // Emit "stop-typing" event to all other clients except the one who triggered the event
-  //   socket.broadcast.emit("stop-typing", nickname);
-  // });
+  socket.on("stopTyping", (nickname: string) => {
+    stopTyping(nickname);
+  });
+  
 });
 
 function getRooms() {
@@ -80,3 +70,11 @@ function getRooms() {
 
 io.listen(3000);
 console.log("listening on port 3000");
+function startTyping(nickname: string) {
+  throw new Error("Function not implemented.");
+}
+
+function stopTyping(nickname: string) {
+  throw new Error("Function not implemented.");
+}
+
