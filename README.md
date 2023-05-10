@@ -1,6 +1,4 @@
-# Chatropolis
-
-#### Explore the world through shared experiences
+# Chatropolis - Explore the world through shared experiences
 
 ## Chat med socket.io
 
@@ -16,11 +14,11 @@ Vi som skapat projektet heter Martina Kreivi, Jennifer Techel och Jenny Weijland
 - `npm run dev`
 - `npm install`
 
-### Krav för Godkäns
+### Krav för Godkänt
 
 - [ ] Användaren får börja med att välja ett eget visningsnamn när den besöker sidan.
 - [ ] Användaren ska kunna skapa ett rum och samtidigt gå med i rummet.
-- [ ] Användaren ska kunna lämna ett rum. Tomma rum ska automatiskr försvinna.
+- [ ] Användaren ska kunna lämna ett rum. Tomma rum ska automatiskt försvinna.
 - [ ] Samtliga rum ska vara synliga i en lista.
 - [ ] Användaren ska kunna gå med i ett befintligt rum genom att klicka på det i listan.
 - [ ] När en användare går med i ett nytt rum ska befintligt rum lämnas automatiskt.

@@ -1,15 +1,16 @@
 import {
-  Box,
+  Flex,
   Modal,
-  ModalContent,
-  ModalOverlay,
-  ModalCloseButton,
-  Text,
   ModalBody,
+  ModalCloseButton,
+  ModalContent,
   ModalHeader,
+  ModalOverlay,
+  Text,
+  useBreakpointValue,
 } from "@chakra-ui/react";
-import RoomBox from "./RoomBox";
 import { useSocket } from "../context/SocketContext";
+import RoomBox from "./RoomBox";
 
 interface ActiveRoomsModalProps {
   isOpen: boolean;
@@ -18,20 +19,34 @@ interface ActiveRoomsModalProps {
 
 function ActiveRoomsModal({ isOpen, onClose }: ActiveRoomsModalProps) {
   const { joinRoom, rooms } = useSocket();
+  const modalSize = useBreakpointValue({
+    sm: "xs",
+    md: "lg",
+    lg: "lg",
+  });
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} size='md'>
-      <ModalOverlay />
-      <ModalContent>
-        <ModalHeader textAlign='center'>Active Rooms</ModalHeader>
-        <ModalCloseButton />
-        <ModalBody>
-          {rooms.map((room) => (
-            <RoomBox key={room} room={room} joinRoom={joinRoom} />
-          ))}
-        </ModalBody>
-      </ModalContent>
-    </Modal>
+    <Flex>
+      <Modal isOpen={isOpen} onClose={onClose} size={modalSize}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader textAlign="center">Active Rooms</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            {rooms.length > 0 ? (
+              rooms.map((room) => (
+                <RoomBox key={room} room={room} joinRoom={joinRoom} />
+              ))
+            ) : (
+              <Text textAlign="center" mb="1rem">
+                There are currently no active rooms to join - create one and
+                start chatting!
+              </Text>
+            )}
+          </ModalBody>
+        </ModalContent>
+      </Modal>
+    </Flex>
   );
 }
 

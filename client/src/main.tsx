@@ -16,9 +16,6 @@ import App from "./App";
 import SocketProvider from "./context/SocketContext";
 import "./index.css";
 import HomePage from "./pages/HomePage";
-import PrivateChat from "./pages/PrivateChat";
-import PrivateHomePage from "./pages/PrivateHomePage";
-import PrivateNewPage from "./pages/PrivateNewPage";
 import RoomChat from "./pages/RoomChat";
 import RoomHomePage from "./pages/RoomHomePage";
 import RoomNewPage from "./pages/RoomNewPage";
@@ -27,15 +24,12 @@ import theme from "./theme";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path='/' element={<App />}>
+    <Route path="/" element={<App />}>
       <Route index element={<StartPage />} />
-      <Route path='home' element={<HomePage />} />
-      <Route path='/room' element={<RoomHomePage />} />
-      <Route path='room/new' element={<RoomNewPage />} />
-      <Route path='room/:roomId' element={<RoomChat />} />
-      <Route path='private' element={<PrivateHomePage />} />
-      <Route path='private/new' element={<PrivateNewPage />} />
-      <Route path='private/chat' element={<PrivateChat />} />
+      <Route path="home" element={<HomePage />} />
+      <Route path="/room" element={<RoomHomePage />} />
+      <Route path="room/new" element={<RoomNewPage />} />
+      <Route path="room/:roomId" element={<RoomChat />} />
     </Route>
   )
 );
