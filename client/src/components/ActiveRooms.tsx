@@ -1,25 +1,38 @@
-import { Box, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Modal,
+  ModalContent,
+  ModalOverlay,
+  ModalCloseButton,
+  Text,
+  ModalBody,
+  ModalHeader,
+} from "@chakra-ui/react";
 import RoomBox from "./RoomBox";
 import { useSocket } from "../context/SocketContext";
 
-function ActiveRooms() {
+interface ActiveRoomsModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+function ActiveRoomsModal({ isOpen, onClose }: ActiveRoomsModalProps) {
   const { joinRoom, rooms } = useSocket();
 
   return (
-    <Box w='90%' mt={6}>
-      <Box
-        background='#B6CE9E'
-        py={2}
-        alignItems='center'
-        justifyContent='center'
-      >
-        <Text textAlign='center'>Active Rooms</Text>
-      </Box>
-      {rooms.map((room) => (
-        <RoomBox key={room} room={room} joinRoom={joinRoom} />
-      ))}
-    </Box>
+    <Modal isOpen={isOpen} onClose={onClose} size='md'>
+      <ModalOverlay />
+      <ModalContent>
+        <ModalHeader textAlign='center'>Active Rooms</ModalHeader>
+        <ModalCloseButton />
+        <ModalBody>
+          {rooms.map((room) => (
+            <RoomBox key={room} room={room} joinRoom={joinRoom} />
+          ))}
+        </ModalBody>
+      </ModalContent>
+    </Modal>
   );
 }
 
-export default ActiveRooms;
+export default ActiveRoomsModal;

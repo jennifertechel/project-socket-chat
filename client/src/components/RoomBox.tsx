@@ -22,9 +22,11 @@ export default function RoomBox({ room, joinRoom }: RoomBoxProps) {
         background='#f5f5f5'
         p='1px 10px'
       >
-        <Flex justifyContent='space-between'>
-          <Text ml='0'>{room}</Text>
-          <Button onClick={handleJoinRoom}>Join room</Button>
+        <Flex justifyContent='space-between' mx={4}>
+          <Text pt={2}>{room}</Text>
+          <Button bg='none' onClick={handleJoinRoom}>
+            Join room
+          </Button>
         </Flex>
       </Box>
     </Flex>

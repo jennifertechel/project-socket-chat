@@ -31,7 +31,18 @@ export default function MessageInput() {
           </Form>
         </Box>
         <Box ml='0.4rem'>
-          <Button type='submit' form='messageInput' fontSize='0.7rem' size='sm'>
+          <Button
+            type='submit'
+            form='messageInput'
+            bg='none'
+            border='solid 1px'
+            borderRadius='none'
+            borderColor='brand.800'
+            color='brand.800'
+            fontWeight='medium'
+            fontSize='smaller'
+            _hover={{ bg: "brand.200", borderColor: "brand.200" }}
+          >
             Send
           </Button>
         </Box>
