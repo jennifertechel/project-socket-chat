@@ -25,25 +25,22 @@ function HomePage() {
   const [isMobile] = useMediaQuery("(max-width: 768px)");
 
   return (
-    <Flex justifyContent='center' alignItems='center' minH='100vh'>
-      {!isMobile && <Header />}
+    <Flex
+      flexDir='column'
+      justifyContent='center'
+      alignItems='center'
+      w={{ base: "95%", md: "50%" }}
+      mt={{ base: 0, md: -36 }}
+    >
+      {isMobile && <LogoBox />}
 
-      <Box
-        boxSize={boxSize}
-        display='flex'
-        flexDirection='column'
-        alignItems='center'
-      >
-        {isMobile && <LogoBox />}
-
-        <Heading m='30px'>Welcome {nickname}!</Heading>
-        <Text textAlign='center'>
-          To the ultimate destination for all things cities and travel! Whether
-          you're a passionate globetrotter, an aspiring explorer, or simply
-          someone curious about different cultures and urban wonders, you've
-          come to the right place.
-        </Text>
-      </Box>
+      <Heading m='30px'>Welcome {nickname}!</Heading>
+      <Text textAlign='center'>
+        To the ultimate destination for all things cities and travel! Whether
+        you're a passionate globetrotter, an aspiring explorer, or simply
+        someone curious about different cultures and urban wonders, you've come
+        to the right place.
+      </Text>
       {isMobile && <Footer />}
       {!isMobile && (
         <Image src='/assets/city.svg' pos='absolute' bottom={0} right={0} />
