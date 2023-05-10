@@ -31,9 +31,6 @@ function Header() {
       <Box>
         <Link to="/room">Room</Link>
       </Box>
-      <Box>
-        <Link to="/room">Back</Link>
-      </Box>
     </Flex>
   );
 }
