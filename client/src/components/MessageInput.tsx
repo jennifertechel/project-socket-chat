@@ -9,38 +9,41 @@ export default function MessageInput() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    sendMessage(message);
-    setMessage("");
+    if (message.trim() !== "") {
+      sendMessage(message);
+      setMessage("");
+    }
   };
 
   return (
     <>
-      <Flex align='center'>
-        <Box w='285px' ml='0.5rem' border='1px'>
-          <Form onSubmit={handleSubmit} id='messageInput'>
+      <Flex align="center">
+        <Box w="285px" ml="0.5rem" border="1px">
+          <Form onSubmit={handleSubmit} id="messageInput">
             <FormControl>
               <Input
-                name='message'
-                placeholder='Write a message'
-                type='text'
+                name="message"
+                placeholder="Write a message"
+                type="text"
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
-                fontSize='0.8rem'
+                fontSize="0.8rem"
+                required
               />
             </FormControl>
           </Form>
         </Box>
-        <Box ml='0.4rem'>
+        <Box ml="0.4rem">
           <Button
-            type='submit'
-            form='messageInput'
-            bg='none'
-            border='solid 1px'
-            borderRadius='none'
-            borderColor='brand.800'
-            color='brand.800'
-            fontWeight='medium'
-            fontSize='smaller'
+            type="submit"
+            form="messageInput"
+            bg="none"
+            border="solid 1px"
+            borderRadius="none"
+            borderColor="brand.800"
+            color="brand.800"
+            fontWeight="medium"
+            fontSize="smaller"
             _hover={{ bg: "brand.200", borderColor: "brand.200" }}
           >
             Send
