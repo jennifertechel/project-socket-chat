@@ -35,6 +35,9 @@ function RoomChat() {
       </Box>
       <MessageBox />
       <MessageInput />
+      <Box p="10px">
+        <Image src="/assets/arrowBack.svg" />
+      </Box>
     </Flex>
   );
 }
