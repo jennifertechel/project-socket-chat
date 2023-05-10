@@ -1,4 +1,4 @@
-import { Box, Flex, Heading } from "@chakra-ui/react";
+import { Box, Flex, Heading, Text } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 
 function Header() {
@@ -25,6 +25,9 @@ function Header() {
             Chatropolis
           </Heading>
         </Link>
+        <Text fontFamily="Luckiest Guy" color="brand.800">
+          "Explore the world through shared experiences"
+        </Text>
       </Box>
       <Box>
         <Link to="/home">Home</Link>
