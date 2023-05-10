@@ -1,7 +1,13 @@
-import { Box, Button, Flex, Text, useMediaQuery } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Flex,
+  Image,
+  Text,
+  useMediaQuery,
+} from "@chakra-ui/react";
 import { useNavigate, useParams } from "react-router-dom";
 import Header from "../components/Header";
-import LogoBox from "../components/LogoBox";
 import MessageBox from "../components/MessageBox";
 import MessageInput from "../components/MessageInput";
 import { useSocket } from "../context/SocketContext";
@@ -29,8 +35,10 @@ function RoomChat() {
       w={{ base: "95%", md: "50%" }}
       mt={{ base: 0, md: -36 }}
     >
-      <LogoBox />
       {!isMobile && <Header />}
+      <Box w="300px">
+        <Image src="/assets/city.svg" />
+      </Box>
       <Box
         bg="brand.900"
         w="345px"
