@@ -36,6 +36,21 @@ io.on("connection", (socket) => {
     io.emit("rooms", getRooms());
   });
 
+  socket.on("leave", (room) => {
+    socket.leave(room);
+    io.to(room).emit("rooms", getRooms());
+
+    // When a user leaves a room, check if the room is empty
+    const roomIsEmpty = io.sockets.adapter.rooms.get(room)?.size === 0;
+
+    if (roomIsEmpty) {
+      io.sockets.adapter.rooms.delete(room);
+
+      // Send an updated list of rooms to everyone
+      io.emit("rooms", getRooms());
+    }
+  });
+
   // When a new user connects send the list of rooms
   socket.emit("rooms", getRooms());
 
@@ -43,25 +58,21 @@ io.on("connection", (socket) => {
     // Get the nickname from the socket object's data property
     const nickname = socket.data.nickname;
     console.log(`User ${nickname} disconnected`);
+
+    socket.on("leave", (room) => {
+      socket.leave(room);
+
+      // When a user leaves a room, check if the room is empty
+      const roomIsEmpty = io.sockets.adapter.rooms.get(room)?.size === 0;
+
+      if (roomIsEmpty) {
+        io.sockets.adapter.rooms.delete(room);
+
+        // Send an updated list of rooms to everyone
+        io.emit("rooms", getRooms());
+      }
+    });
   });
-
-  // socket.on("start-typing", () => {
-  //   // Get the nickname from the socket object's data property
-  //   const nickname = socket.data.nickname;
-  //   console.log(`User ${nickname} started typing`);
-
-  //   // Emit "start-typing" event to all other clients except the one who triggered the event
-  //   socket.broadcast.emit("start-typing", nickname);
-  // });
-
-  // socket.on("stop-typing", () => {
-  //   // Get the nickname from the socket object's data property
-  //   const nickname = socket.data.nickname;
-  //   console.log(`User ${nickname} stopped typing`);
-
-  //   // Emit "stop-typing" event to all other clients except the one who triggered the event
-  //   socket.broadcast.emit("stop-typing", nickname);
-  // });
 });
 
 function getRooms() {
