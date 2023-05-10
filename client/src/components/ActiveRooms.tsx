@@ -38,9 +38,9 @@ function ActiveRoomsModal({ isOpen, onClose }: ActiveRoomsModalProps) {
                 <RoomBox key={room} room={room} joinRoom={joinRoom} />
               ))
             ) : (
-              <Text textAlign="center">
-                There are currently no active chat rooms to join. Why don't you
-                create one and start chatting!
+              <Text textAlign="center" mb="1rem">
+                There are currently no active rooms to join - create one and
+                start chatting!
               </Text>
             )}
           </ModalBody>
