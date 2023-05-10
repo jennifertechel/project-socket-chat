@@ -16,6 +16,21 @@ const io = new Server<
 io.on("connection", (socket) => {
   console.log("a user connected");
 
+  socket.on("leave", (room: string) => {
+    socket.leave(room);
+
+    // When a user leaves a room, send an updated list of rooms to everyone
+    io.emit("rooms", getRooms());
+
+    // Check if the room is empty after the user left
+    const isRoomEmpty = io.sockets.adapter.rooms.get(room)?.size === 0;
+
+    if (isRoomEmpty) {
+      // Delete the room
+      io.emit("roomDeleted", room);
+    }
+  });
+
   //Lägg till nickname, så att det syns vem som skrivit, fick felmeddelande när jag la till socket.data.name
   socket.on("message", (nickname: string, message: string) => {
     io.emit("message", nickname, message);

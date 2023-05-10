@@ -21,6 +21,7 @@ interface ContextValues {
   sendMessage: (message: string) => void;
   messages: Message[];
   rooms: string[];
+  handleRoomDeletion: () => void;
 }
 
 const SocketContext = createContext<ContextValues>(null as any);
@@ -59,6 +60,12 @@ function SocketProvider({ children }: PropsWithChildren) {
   //Lägg till room
   const sendMessage = (message: string) => {
     socket.emit("message", nickname, message);
+  };
+
+  const handleRoomDeletion = () => {
+    if (room && !rooms.includes(room)) {
+      setRoom(undefined);
+    }
   };
 
   useEffect(() => {
@@ -111,6 +118,8 @@ function SocketProvider({ children }: PropsWithChildren) {
     socket.on("disconnect", disconnect);
     socket.on("message", message);
     socket.on("rooms", updateRooms);
+    socket.on("roomDeleted", handleRoomDeletion);
+
     // socket.on("start-typing", handleStartTyping);
     // socket.on("stop-typing", handleStopTyping);
 
@@ -119,6 +128,8 @@ function SocketProvider({ children }: PropsWithChildren) {
       socket.off("disconnect", disconnect);
       socket.off("message", message);
       socket.off("rooms", updateRooms);
+      socket.off("roomDeleted", handleRoomDeletion);
+
       // socket.off("start-typing", handleStartTyping);
       // socket.off("stop-typing", handleStopTyping);
     };
@@ -135,6 +146,7 @@ function SocketProvider({ children }: PropsWithChildren) {
         sendMessage,
         messages,
         rooms,
+        handleRoomDeletion,
       }}
     >
       {children}

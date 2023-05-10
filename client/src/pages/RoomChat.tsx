@@ -1,12 +1,26 @@
-import { Box, Flex, Image, Text, useMediaQuery } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Flex,
+  Image,
+  Text,
+  useMediaQuery,
+} from "@chakra-ui/react";
 import MessageBox from "../components/MessageBox";
 import MessageInput from "../components/MessageInput";
 import { useSocket } from "../context/SocketContext";
 import Header from "../components/Header";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 function RoomChat() {
   const { roomId } = useParams();
+  const { handleRoomDeletion } = useSocket();
+  const navigate = useNavigate();
+
+  function handleSubmit() {
+    handleRoomDeletion();
+    navigate("/room");
+  }
 
   const [isMobile] = useMediaQuery("(max-width: 768px)");
 
@@ -17,6 +31,7 @@ function RoomChat() {
       justifyContent='center'
       alignItems='center'
     >
+      <Button onClick={handleSubmit}>Exit</Button>
       {!isMobile && <Header />}
       <Box w='20%'>
         <Image src='/assets/city.svg' />

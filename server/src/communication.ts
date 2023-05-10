@@ -3,6 +3,7 @@ export interface ServerToClientEvents {
   typing: (nickname: string) => void;
   nickname: (nickname: string) => void;
   rooms: (rooms: string[]) => void;
+  roomDeleted: (room: string) => void; // Added roomDeleted event
 }
 
 export interface ClientToServerEvents {
