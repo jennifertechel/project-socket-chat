@@ -10,6 +10,7 @@ import MessageBox from "../components/MessageBox";
 import MessageInput from "../components/MessageInput";
 import Header from "../components/Header";
 import { useNavigate, useParams } from "react-router-dom";
+import { useSocket } from "../context/SocketContext";
 
 function RoomChat() {
   const { roomId } = useParams();
