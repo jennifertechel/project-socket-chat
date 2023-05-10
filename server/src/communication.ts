@@ -3,7 +3,7 @@ export interface ServerToClientEvents {
   typing: (nickname: string) => void;
   nickname: (nickname: string) => void;
   rooms: (rooms: string[]) => void;
-  roomDeleted: (room: string) => void; // Added roomDeleted event
+  leave: () => void; // Add the 'leave' event definition
 }
 
 export interface ClientToServerEvents {
@@ -22,7 +22,6 @@ export interface SocketData {
   nickname?: string;
 }
 
-//ska även ha name: string;
 export interface Message {
   nickname: string;
   message: string;

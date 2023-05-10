@@ -21,7 +21,7 @@ interface ContextValues {
   sendMessage: (message: string) => void;
   messages: Message[];
   rooms: string[];
-  handleRoomDeletion: () => void;
+  leaveRoom: (room: string) => void;
 }
 
 const SocketContext = createContext<ContextValues>(null as any);
@@ -34,8 +34,11 @@ function SocketProvider({ children }: PropsWithChildren) {
   const [room, setRoom] = useState<string>();
   const [rooms, setRooms] = useState<string[]>([]); // Initialize 'rooms' state
 
-  // const [isTyping, setIsTyping] = useState<boolean>(false);
   const [messages, setMessages] = useState<Message[]>([]);
+
+  const leaveRoom = (room: string) => {
+    socket.emit("leave", room);
+  };
 
   const joinRoom = (room: string) => {
     socket.emit("join", room, () => {
@@ -62,12 +65,6 @@ function SocketProvider({ children }: PropsWithChildren) {
     socket.emit("message", nickname, message);
   };
 
-  const handleRoomDeletion = () => {
-    if (room && !rooms.includes(room)) {
-      setRoom(undefined);
-    }
-  };
-
   useEffect(() => {
     function connect() {
       console.log("Connected to server");
@@ -81,57 +78,28 @@ function SocketProvider({ children }: PropsWithChildren) {
     }
 
     function updateRooms(rooms: string[]) {
+      console.log("Updated rooms:", rooms); // Log the updated room list
+
       setRooms(rooms);
     }
 
-    // function startTyping() {
-    //   socket.emit("start-typing", nickname);
-    //   setIsTyping(true);
-    // }
-
-    // function stopTyping() {
-    //   socket.emit("stop-typing", nickname);
-    //   setIsTyping(false);
-    // }
-
-    // function handleStartTyping(nickname: string) {
-    //   console.log(`${nickname} is typing...`);
-    //   setIsTyping(true);
-    // }
-
-    // function handleStopTyping(nickname: string) {
-    //   console.log(`${nickname} stopped typing.`);
-    //   setIsTyping(false);
-    // }
-
-    // function handleTyping(event: React.ChangeEvent<HTMLInputElement>) {
-    //   const message = event.target.value;
-    //   setMessage(message);
-    //   if (message) {
-    //     startTyping();
-    //   } else {
-    //     stopTyping();
-    //   }
-    // }
+    function handleLeave() {
+      console.log("Left the room"); // Log when a user leaves the room
+      setRoom(undefined);
+    }
 
     socket.on("connect", connect);
     socket.on("disconnect", disconnect);
     socket.on("message", message);
     socket.on("rooms", updateRooms);
-    socket.on("roomDeleted", handleRoomDeletion);
-
-    // socket.on("start-typing", handleStartTyping);
-    // socket.on("stop-typing", handleStopTyping);
+    socket.on("leave", handleLeave);
 
     return () => {
       socket.off("connect", connect);
       socket.off("disconnect", disconnect);
       socket.off("message", message);
       socket.off("rooms", updateRooms);
-      socket.off("roomDeleted", handleRoomDeletion);
-
-      // socket.off("start-typing", handleStartTyping);
-      // socket.off("stop-typing", handleStopTyping);
+      socket.off("leave", handleLeave);
     };
   }, []);
 
@@ -146,7 +114,7 @@ function SocketProvider({ children }: PropsWithChildren) {
         sendMessage,
         messages,
         rooms,
-        handleRoomDeletion,
+        leaveRoom,
       }}
     >
       {children}
