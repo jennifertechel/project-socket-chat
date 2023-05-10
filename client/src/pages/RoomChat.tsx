@@ -27,7 +27,6 @@ function RoomChat() {
 
   const [isMobile] = useMediaQuery("(max-width: 768px)");
 
-  // Lägg in bakåtknapp här och ta bort den från Header.tsx och Footer.tsx
   return (
     <Flex
       flexDir='column'
@@ -36,7 +35,6 @@ function RoomChat() {
       w={{ base: "95%", md: "50%" }}
       mt={{ base: 0, md: -36 }}
     >
-      <Button onClick={handleSubmit}>Exit</Button>
       {!isMobile && <Header />}
       <Box w='300px'>
         <Image src='/assets/city.svg' />
@@ -66,8 +64,9 @@ function RoomChat() {
           fontWeight='medium'
           fontSize='smaller'
           _hover={{ bg: "brand.200", borderColor: "brand.200" }}
+          onClick={handleSubmit}
         >
-          <Link to='/room'>Leave room</Link>
+          Leave room
         </Button>
       </Box>
     </Flex>
