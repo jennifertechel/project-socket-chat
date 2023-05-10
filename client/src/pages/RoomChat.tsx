@@ -1,4 +1,11 @@
-import { Box, Flex, Image, Text, useMediaQuery } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Flex,
+  Image,
+  Text,
+  useMediaQuery,
+} from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 import Header from "../components/Header";
 import MessageBox from "../components/MessageBox";
@@ -36,7 +43,10 @@ function RoomChat() {
       <MessageBox />
       <MessageInput />
       <Box p="10px">
-        <Image src="/assets/arrowBack.svg" />
+        <Button bg="none">
+          <Image src="/assets/arrowBack.svg" m="5px" />
+          Leave room
+        </Button>
       </Box>
     </Flex>
   );
