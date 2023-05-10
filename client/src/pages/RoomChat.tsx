@@ -25,7 +25,7 @@ function RoomChat() {
       mt={{ base: 0, md: -36 }}
     >
       {!isMobile && <Header />}
-      <Box w="50%">
+      <Box w="300px">
         <Image src="/assets/city.svg" />
       </Box>
       <Box
