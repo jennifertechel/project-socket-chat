@@ -1,10 +1,8 @@
 import { Avatar, Box, Flex, Text } from "@chakra-ui/react";
-import { useState } from "react";
 import { useSocket } from "../context/SocketContext";
 
 export default function MessageBox() {
-  const [message, setMessage] = useState("");
-  const { sendMessage, messages } = useSocket();
+  const { messages } = useSocket();
 
   return (
     <>
