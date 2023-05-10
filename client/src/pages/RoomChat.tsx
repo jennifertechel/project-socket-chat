@@ -6,7 +6,7 @@ import {
   Text,
   useMediaQuery,
 } from "@chakra-ui/react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Header from "../components/Header";
 import MessageBox from "../components/MessageBox";
 import MessageInput from "../components/MessageInput";
@@ -43,9 +43,18 @@ function RoomChat() {
       <MessageBox />
       <MessageInput />
       <Box p="10px">
-        <Button bg="none">
-          <Image src="/assets/arrowBack.svg" m="5px" />
-          Leave room
+        <Button
+          mt="20px"
+          bg="none"
+          border="solid 1px"
+          borderRadius="none"
+          borderColor="brand.800"
+          color="brand.800"
+          fontWeight="medium"
+          fontSize="smaller"
+          _hover={{ bg: "brand.200", borderColor: "brand.200" }}
+        >
+          <Link to="/room">Leave room</Link>
         </Button>
       </Box>
     </Flex>
