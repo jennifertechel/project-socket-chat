@@ -34,7 +34,8 @@ function RoomNewPage() {
         <Link to="/room">
           <Image
             src="/assets/goBackButton.svg"
-            style={{ position: "absolute", left: 0 }}
+            boxSize={isMobile ? "50px" : "100px"}
+            style={{ position: "absolute", left: 0, padding: "5px" }}
           />
         </Link>
       </Box>
