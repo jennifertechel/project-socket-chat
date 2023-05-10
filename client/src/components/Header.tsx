@@ -11,6 +11,7 @@ function Header() {
       alignItems="center"
       h={20}
       borderBottom="1px solid lightgrey"
+      bg={"white"}
     >
       <Box>
         <Link to="/home">
