@@ -14,14 +14,15 @@ import { useSocket } from "../context/SocketContext";
 
 function RoomChat() {
   const { roomId } = useParams();
-  const { leaveRoom } = useSocket();
+  const { leaveRoom, setRooms } = useSocket();
   const navigate = useNavigate();
 
   function handleSubmit() {
-    if (roomId) {
-      leaveRoom(roomId);
-      navigate("/room");
-    }
+    leaveRoom();
+    setRooms((prevRooms) =>
+      prevRooms.filter((prevRoom) => prevRoom !== roomId)
+    );
+    navigate("/room");
   }
 
   const [isMobile] = useMediaQuery("(max-width: 768px)");

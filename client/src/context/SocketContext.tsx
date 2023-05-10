@@ -21,7 +21,8 @@ interface ContextValues {
   sendMessage: (message: string) => void;
   messages: Message[];
   rooms: string[];
-  leaveRoom: (room: string) => void;
+  leaveRoom: () => void;
+  setRooms: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
 const SocketContext = createContext<ContextValues>(null as any);
@@ -36,8 +37,11 @@ function SocketProvider({ children }: PropsWithChildren) {
 
   const [messages, setMessages] = useState<Message[]>([]);
 
-  const leaveRoom = (room: string) => {
-    socket.emit("leave", room);
+  const leaveRoom = () => {
+    if (room !== undefined) {
+      socket.emit("leave", room);
+    }
+    setRoom("");
   };
 
   const joinRoom = (room: string) => {
@@ -79,27 +83,19 @@ function SocketProvider({ children }: PropsWithChildren) {
 
     function updateRooms(rooms: string[]) {
       console.log("Updated rooms:", rooms); // Log the updated room list
-
       setRooms(rooms);
-    }
-
-    function handleLeave() {
-      console.log("Left the room"); // Log when a user leaves the room
-      setRoom(undefined);
     }
 
     socket.on("connect", connect);
     socket.on("disconnect", disconnect);
     socket.on("message", message);
     socket.on("rooms", updateRooms);
-    socket.on("leave", handleLeave);
 
     return () => {
       socket.off("connect", connect);
       socket.off("disconnect", disconnect);
       socket.off("message", message);
       socket.off("rooms", updateRooms);
-      socket.off("leave", handleLeave);
     };
   }, []);
 
@@ -115,6 +111,7 @@ function SocketProvider({ children }: PropsWithChildren) {
         messages,
         rooms,
         leaveRoom,
+        setRooms,
       }}
     >
       {children}

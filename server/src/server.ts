@@ -16,20 +16,6 @@ const io = new Server<
 io.on("connection", (socket) => {
   console.log("a user connected");
 
-  socket.on("leave", (room: string) => {
-    socket.leave(room);
-
-    // When a user leaves a room, check if the room is empty
-    const roomIsEmpty = io.sockets.adapter.rooms.get(room)?.size === 0;
-
-    if (roomIsEmpty) {
-      io.sockets.adapter.rooms.delete(room);
-
-      // Send an updated list of rooms to everyone
-      io.emit("rooms", getRooms());
-    }
-  });
-
   //Lägg till nickname, så att det syns vem som skrivit, fick felmeddelande när jag la till socket.data.name
   socket.on("message", (nickname: string, message: string) => {
     io.emit("message", nickname, message);
@@ -48,6 +34,21 @@ io.on("connection", (socket) => {
     ack();
     // When a user joins a room, send an updated list of rooms to everyone
     io.emit("rooms", getRooms());
+  });
+
+  socket.on("leave", (room) => {
+    socket.leave(room);
+    io.to(room).emit("rooms", getRooms());
+
+    // When a user leaves a room, check if the room is empty
+    const roomIsEmpty = io.sockets.adapter.rooms.get(room)?.size === 0;
+
+    if (roomIsEmpty) {
+      io.sockets.adapter.rooms.delete(room);
+
+      // Send an updated list of rooms to everyone
+      io.emit("rooms", getRooms());
+    }
   });
 
   // When a new user connects send the list of rooms
