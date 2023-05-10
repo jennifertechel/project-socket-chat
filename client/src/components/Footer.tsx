@@ -19,7 +19,7 @@ export default function Footer() {
         <Link to="/home">Home</Link>
       </Box>
       <Box>
-        <Link to="private">Private</Link>
+        <Link to="/room">Back</Link>
       </Box>
     </Flex>
   );

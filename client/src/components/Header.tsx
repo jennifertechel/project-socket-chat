@@ -32,7 +32,7 @@ function Header() {
         <Link to="/room">Room</Link>
       </Box>
       <Box>
-        <Link to="private">Private</Link>
+        <Link to="/room">Back</Link>
       </Box>
     </Flex>
   );
