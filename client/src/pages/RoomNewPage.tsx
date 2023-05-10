@@ -30,6 +30,14 @@ function RoomNewPage() {
 
   return (
     <Flex flexDir="column" justifyContent="center" alignItems="center" mt={20}>
+      <Box>
+        <Link to="/room">
+          <Image
+            src="/assets/goBackButton.svg"
+            style={{ position: "absolute", left: 0 }}
+          />
+        </Link>
+      </Box>
       {!isMobile && <Header />}
 
       {isMobile && <LogoBox />}
@@ -49,14 +57,6 @@ function RoomNewPage() {
         <Button mt={4} type="submit">
           Create room
         </Button>
-        <Box>
-          <Link to="/room">
-            <Image
-              src="/assets/goBackButton.svg"
-              style={{ position: "absolute", left: 0 }}
-            />
-          </Link>
-        </Box>
       </form>
       {isMobile && <Footer />}
     </Flex>
