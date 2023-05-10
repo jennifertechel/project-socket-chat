@@ -1,14 +1,6 @@
-import {
-  Box,
-  Button,
-  Flex,
-  Heading,
-  Image,
-  Input,
-  useMediaQuery,
-} from "@chakra-ui/react";
+import { Button, Flex, Heading, Input, useMediaQuery } from "@chakra-ui/react";
 import { useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import LogoBox from "../components/LogoBox";
@@ -30,15 +22,6 @@ function RoomNewPage() {
 
   return (
     <Flex flexDir="column" justifyContent="center" alignItems="center" mt={20}>
-      <Box>
-        <Link to="/room">
-          <Image
-            src="/assets/goBackButton.svg"
-            boxSize={isMobile ? "50px" : "100px"}
-            style={{ position: "absolute", left: 0, padding: "5px" }}
-          />
-        </Link>
-      </Box>
       {!isMobile && <Header />}
 
       {isMobile && <LogoBox />}
