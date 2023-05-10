@@ -11,6 +11,7 @@ function Header() {
       alignItems="center"
       h={20}
       borderBottom="1px solid lightgrey"
+      bg={"white"}
     >
       <Box>
         <Link to="/home">
@@ -30,9 +31,6 @@ function Header() {
       </Box>
       <Box>
         <Link to="/room">Room</Link>
-      </Box>
-      <Box>
-        <Link to="private">Private</Link>
       </Box>
     </Flex>
   );

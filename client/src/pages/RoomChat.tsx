@@ -9,7 +9,7 @@ import {
 import MessageBox from "../components/MessageBox";
 import MessageInput from "../components/MessageInput";
 import Header from "../components/Header";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useSocket } from "../context/SocketContext";
 
 function RoomChat() {
@@ -27,6 +27,7 @@ function RoomChat() {
 
   const [isMobile] = useMediaQuery("(max-width: 768px)");
 
+  // Lägg in bakåtknapp här och ta bort den från Header.tsx och Footer.tsx
   return (
     <Flex
       flexDir='column'
@@ -37,7 +38,7 @@ function RoomChat() {
     >
       <Button onClick={handleSubmit}>Exit</Button>
       {!isMobile && <Header />}
-      <Box w='50%'>
+      <Box w='300px'>
         <Image src='/assets/city.svg' />
       </Box>
       <Box
@@ -54,6 +55,21 @@ function RoomChat() {
       </Box>
       <MessageBox />
       <MessageInput />
+      <Box p='10px'>
+        <Button
+          mt='20px'
+          bg='none'
+          border='solid 1px'
+          borderRadius='none'
+          borderColor='brand.800'
+          color='brand.800'
+          fontWeight='medium'
+          fontSize='smaller'
+          _hover={{ bg: "brand.200", borderColor: "brand.200" }}
+        >
+          <Link to='/room'>Leave room</Link>
+        </Button>
+      </Box>
     </Flex>
   );
 }
