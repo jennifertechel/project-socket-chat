@@ -1,15 +1,14 @@
 import {
-  Box,
   Modal,
-  ModalContent,
-  ModalOverlay,
-  ModalCloseButton,
-  Text,
   ModalBody,
+  ModalCloseButton,
+  ModalContent,
   ModalHeader,
+  ModalOverlay,
+  Text,
 } from "@chakra-ui/react";
-import RoomBox from "./RoomBox";
 import { useSocket } from "../context/SocketContext";
+import RoomBox from "./RoomBox";
 
 interface ActiveRoomsModalProps {
   isOpen: boolean;
@@ -20,15 +19,22 @@ function ActiveRoomsModal({ isOpen, onClose }: ActiveRoomsModalProps) {
   const { joinRoom, rooms } = useSocket();
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} size='md'>
+    <Modal isOpen={isOpen} onClose={onClose} size="md">
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader textAlign='center'>Active Rooms</ModalHeader>
+        <ModalHeader textAlign="center">Active Rooms</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
-          {rooms.map((room) => (
-            <RoomBox key={room} room={room} joinRoom={joinRoom} />
-          ))}
+          {rooms.length > 0 ? (
+            rooms.map((room) => (
+              <RoomBox key={room} room={room} joinRoom={joinRoom} />
+            ))
+          ) : (
+            <Text textAlign="center">
+              There are currently no active chat rooms to join. Why don't you
+              create one and start chatting!
+            </Text>
+          )}
         </ModalBody>
       </ModalContent>
     </Modal>
