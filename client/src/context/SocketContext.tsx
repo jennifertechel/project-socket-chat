@@ -130,7 +130,6 @@ function SocketProvider({ children }: PropsWithChildren) {
         leaveRoom,
         setRooms,
         typingNicknames,
-        //handleTyping,
         socket,
       }}
     >
