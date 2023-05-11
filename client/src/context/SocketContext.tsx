@@ -57,13 +57,6 @@ function SocketProvider({ children }: PropsWithChildren) {
     socket.emit("nickname", nickname);
   };
 
-  //const handleTyping = (nickname: string, isTyping: boolean) => {
-  //if (nickname !== typingNicknames) {
-  //setIsTyping(isTyping);
-  //setTypingNicknames(nickname); // Update the typing nickname
-  //}
-  //};
-
   useEffect(() => {
     socket.on("nickname", (nickname: string) => {
       setNickname(nickname);
