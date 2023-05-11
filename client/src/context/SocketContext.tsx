@@ -24,8 +24,6 @@ interface ContextValues {
   rooms: string[];
   leaveRoom: () => void;
   setRooms: React.Dispatch<React.SetStateAction<string[]>>;
-  isTyping: boolean;
-  setIsTyping: React.Dispatch<React.SetStateAction<boolean>>;
   typingNicknames: string[];
   // handleTyping: (typingNickname: string, isTyping: boolean) => void;
 }
@@ -40,7 +38,6 @@ function SocketProvider({ children }: PropsWithChildren) {
   const [room, setRoom] = useState<string>();
   const [rooms, setRooms] = useState<string[]>([]);
   const [messages, setMessages] = useState<Message[]>([]);
-  const [isTyping, setIsTyping] = useState(false);
   const [typingNicknames, setTypingNicknames] = useState<string[]>([]);
 
   const leaveRoom = () => {
@@ -100,7 +97,7 @@ function SocketProvider({ children }: PropsWithChildren) {
       setRooms(rooms);
     }
 
-    function typing(nickname: string, isTyping: boolean) {
+    function handleTyping(isTyping: boolean, nickname: string) {
       if (!isTyping) {
         // filter
         setTypingNicknames((prev) => prev.filter((name) => name !== nickname)); // Filter out the nickname if not typing
@@ -115,14 +112,14 @@ function SocketProvider({ children }: PropsWithChildren) {
     socket.on("disconnect", disconnect);
     socket.on("message", message);
     socket.on("rooms", updateRooms);
-    socket.on("typing", typing);
+    socket.on("typing", handleTyping);
 
     return () => {
       socket.off("connect", connect);
       socket.off("disconnect", disconnect);
       socket.off("message", message);
       socket.off("rooms", updateRooms);
-      socket.off("typing", typing);
+      socket.off("typing", handleTyping);
     };
   }, []);
 
@@ -139,8 +136,6 @@ function SocketProvider({ children }: PropsWithChildren) {
         rooms,
         leaveRoom,
         setRooms,
-        isTyping,
-        setIsTyping,
         typingNicknames,
         //handleTyping,
         socket,

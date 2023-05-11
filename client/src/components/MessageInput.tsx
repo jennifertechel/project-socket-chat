@@ -28,7 +28,7 @@ export default function MessageInput() {
     timerRef.current = setTimeout(() => {
       setIsTyping(false);
       socket.emit("typing", false);
-    }, 5000);
+    }, 3000);
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {

@@ -16,15 +16,19 @@ const io = new Server<
 io.on("connection", (socket) => {
   console.log("a user connected");
 
-  socket.on("typing", (nickname: string, isTyping: boolean, room: string) => {
+  socket.on("typing", (isTyping: boolean) => {
+    const { room, nickname } = socket.data;
+    if (!room || !nickname) return;
+    socket.broadcast.to(room).emit("typing", isTyping, nickname);
+
     console.log("Server received typing event:", nickname, isTyping, room);
-    socket.broadcast.to(room).emit("typing", nickname, isTyping, room);
     //socket.broadcast.emit("typing", nickname, isTyping);
   });
 
   //Lägg till nickname, så att det syns vem som skrivit, fick felmeddelande när jag la till socket.data.name
   socket.on("message", (nickname: string, message: string) => {
-    io.emit("message", nickname, message);
+    if (!socket.data.room) return;
+    io.to(socket.data.room).emit("message", nickname, message);
     console.log(nickname, message);
   });
 
@@ -35,7 +39,12 @@ io.on("connection", (socket) => {
   });
 
   socket.on("join", (room, ack) => {
+    if (socket.data.room) {
+      socket.leave(socket.data.room);
+    }
+
     socket.join(room);
+    socket.data.room = room;
     console.log(socket.rooms);
     ack();
     // When a user joins a room, send an updated list of rooms to everyone
@@ -44,6 +53,8 @@ io.on("connection", (socket) => {
 
   socket.on("leave", (room) => {
     socket.leave(room);
+    socket.data.room = undefined;
+
     io.to(room).emit("rooms", getRooms());
 
     // When a user leaves a room, check if the room is empty
