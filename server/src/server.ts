@@ -20,16 +20,11 @@ io.on("connection", (socket) => {
     const { room, nickname } = socket.data;
     if (!room || !nickname) return;
     socket.broadcast.to(room).emit("typing", isTyping, nickname);
-
-    console.log("Server received typing event:", nickname, isTyping, room);
-    //socket.broadcast.emit("typing", nickname, isTyping);
   });
 
-  //Lägg till nickname, så att det syns vem som skrivit, fick felmeddelande när jag la till socket.data.name
   socket.on("message", (nickname: string, message: string) => {
     if (!socket.data.room) return;
     io.to(socket.data.room).emit("message", nickname, message);
-    console.log(nickname, message);
   });
 
   socket.on("nickname", (nickname: string) => {
@@ -45,7 +40,6 @@ io.on("connection", (socket) => {
 
     socket.join(room);
     socket.data.room = room;
-    console.log(socket.rooms);
     ack();
     // When a user joins a room, send an updated list of rooms to everyone
     io.emit("rooms", getRooms());
