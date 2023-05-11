@@ -1,11 +1,11 @@
-import { Box, Button, Flex, FormControl, Input } from "@chakra-ui/react";
+import { Button, Flex, FormControl, Input } from "@chakra-ui/react";
 import { useState } from "react";
 import { Form } from "react-router-dom";
 import { useSocket } from "../context/SocketContext";
 
 export default function MessageInput() {
   const [message, setMessage] = useState("");
-  const { sendMessage } = useSocket();
+  const { sendMessage, setIsTyping } = useSocket();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -13,6 +13,16 @@ export default function MessageInput() {
       sendMessage(message);
       setMessage("");
     }
+  };
+
+  const handleTyping = (isTyping: boolean) => {
+    setIsTyping(isTyping);
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setMessage(e.target.value);
+    const isTyping = e.target.value !== "";
+    handleTyping(isTyping);
   };
 
   return (
@@ -25,7 +35,7 @@ export default function MessageInput() {
               placeholder='Write a message'
               type='text'
               value={message}
-              onChange={(e) => setMessage(e.target.value)}
+              onChange={handleInputChange}
               fontSize='smaller'
               required
               border='solid 1px '

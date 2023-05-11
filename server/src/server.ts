@@ -16,6 +16,10 @@ const io = new Server<
 io.on("connection", (socket) => {
   console.log("a user connected");
 
+  socket.on("typing", (nickname: string, isTyping: boolean) => {
+    socket.broadcast.emit("typing", nickname, isTyping);
+  });
+
   //Lägg till nickname, så att det syns vem som skrivit, fick felmeddelande när jag la till socket.data.name
   socket.on("message", (nickname: string, message: string) => {
     io.emit("message", nickname, message);

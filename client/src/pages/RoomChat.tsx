@@ -9,12 +9,12 @@ import {
 import MessageBox from "../components/MessageBox";
 import MessageInput from "../components/MessageInput";
 import Header from "../components/Header";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useSocket } from "../context/SocketContext";
 
 function RoomChat() {
   const { roomId } = useParams();
-  const { leaveRoom, setRooms } = useSocket();
+  const { leaveRoom, setRooms, isTyping, typingNickname } = useSocket();
   const navigate = useNavigate();
 
   function handleSubmit() {
@@ -52,6 +52,8 @@ function RoomChat() {
         </Text>
       </Box>
       <MessageBox />
+      {isTyping && <Text>{typingNickname} is typing...</Text>}
+
       <MessageInput />
       <Box p='10px'>
         <Button

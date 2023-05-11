@@ -23,6 +23,10 @@ interface ContextValues {
   rooms: string[];
   leaveRoom: () => void;
   setRooms: React.Dispatch<React.SetStateAction<string[]>>;
+  isTyping: boolean;
+  setIsTyping: React.Dispatch<React.SetStateAction<boolean>>;
+  typingNickname: string;
+  handleTyping: (typingNickname: string, isTyping: boolean) => void;
 }
 
 const SocketContext = createContext<ContextValues>(null as any);
@@ -33,9 +37,10 @@ const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io();
 function SocketProvider({ children }: PropsWithChildren) {
   const [nickname, setNickname] = useState<string>("");
   const [room, setRoom] = useState<string>();
-  const [rooms, setRooms] = useState<string[]>([]); // Initialize 'rooms' state
-
+  const [rooms, setRooms] = useState<string[]>([]);
   const [messages, setMessages] = useState<Message[]>([]);
+  const [isTyping, setIsTyping] = useState(false);
+  const [typingNickname, setTypingNickname] = useState<string>("");
 
   const leaveRoom = () => {
     if (room !== undefined) {
@@ -52,6 +57,13 @@ function SocketProvider({ children }: PropsWithChildren) {
 
   const handleSetNickname = () => {
     socket.emit("nickname", nickname);
+  };
+
+  const handleTyping = (typingNickname: string, isTyping: boolean) => {
+    if (typingNickname !== nickname) {
+      setIsTyping(isTyping);
+      setTypingNickname(typingNickname); // Update the typing nickname
+    }
   };
 
   useEffect(() => {
@@ -76,6 +88,7 @@ function SocketProvider({ children }: PropsWithChildren) {
     function disconnect() {
       console.log("Disconnected to server");
     }
+
     function message(nickname: string, message: string) {
       console.log(nickname, message);
       setMessages((messages) => [...messages, { nickname, message }]);
@@ -86,16 +99,24 @@ function SocketProvider({ children }: PropsWithChildren) {
       setRooms(rooms);
     }
 
+    function typing(nickname: string, isTyping: boolean) {
+      if (nickname !== nickname) {
+        setIsTyping(isTyping);
+      }
+    }
+
     socket.on("connect", connect);
     socket.on("disconnect", disconnect);
     socket.on("message", message);
     socket.on("rooms", updateRooms);
+    socket.on("typing", typing);
 
     return () => {
       socket.off("connect", connect);
       socket.off("disconnect", disconnect);
       socket.off("message", message);
       socket.off("rooms", updateRooms);
+      socket.off("typing", typing);
     };
   }, []);
 
@@ -112,6 +133,10 @@ function SocketProvider({ children }: PropsWithChildren) {
         rooms,
         leaveRoom,
         setRooms,
+        isTyping,
+        setIsTyping,
+        typingNickname,
+        handleTyping,
       }}
     >
       {children}
