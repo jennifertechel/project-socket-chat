@@ -13,6 +13,7 @@ import {
 } from "../../../server/src/communication";
 
 interface ContextValues {
+  socket: Socket;
   nickname: string;
   setNickname: React.Dispatch<React.SetStateAction<string>>;
   handleSetNickname: () => void;
@@ -23,6 +24,8 @@ interface ContextValues {
   rooms: string[];
   leaveRoom: () => void;
   setRooms: React.Dispatch<React.SetStateAction<string[]>>;
+  typingNicknames: string[];
+  // handleTyping: (typingNickname: string, isTyping: boolean) => void;
 }
 
 const SocketContext = createContext<ContextValues>(null as any);
@@ -33,9 +36,9 @@ const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io();
 function SocketProvider({ children }: PropsWithChildren) {
   const [nickname, setNickname] = useState<string>("");
   const [room, setRoom] = useState<string>();
-  const [rooms, setRooms] = useState<string[]>([]); // Initialize 'rooms' state
-
+  const [rooms, setRooms] = useState<string[]>([]);
   const [messages, setMessages] = useState<Message[]>([]);
+  const [typingNicknames, setTypingNicknames] = useState<string[]>([]);
 
   const leaveRoom = () => {
     if (room !== undefined) {
@@ -53,6 +56,13 @@ function SocketProvider({ children }: PropsWithChildren) {
   const handleSetNickname = () => {
     socket.emit("nickname", nickname);
   };
+
+  //const handleTyping = (nickname: string, isTyping: boolean) => {
+  //if (nickname !== typingNicknames) {
+  //setIsTyping(isTyping);
+  //setTypingNicknames(nickname); // Update the typing nickname
+  //}
+  //};
 
   useEffect(() => {
     socket.on("nickname", (nickname: string) => {
@@ -76,6 +86,7 @@ function SocketProvider({ children }: PropsWithChildren) {
     function disconnect() {
       console.log("Disconnected to server");
     }
+
     function message(nickname: string, message: string) {
       console.log(nickname, message);
       setMessages((messages) => [...messages, { nickname, message }]);
@@ -86,16 +97,29 @@ function SocketProvider({ children }: PropsWithChildren) {
       setRooms(rooms);
     }
 
+    function handleTyping(isTyping: boolean, nickname: string) {
+      if (!isTyping) {
+        // filter
+        setTypingNicknames((prev) => prev.filter((name) => name !== nickname)); // Filter out the nickname if not typing
+      } else {
+        setTypingNicknames((prev) => [...prev, nickname]); // Update the typing nickname
+        console.log("Adding nickname:", nickname); // Log the added nickname
+      }
+      console.log("typingNicknames:", typingNicknames); // Log the updated typingNicknames array
+    }
+
     socket.on("connect", connect);
     socket.on("disconnect", disconnect);
     socket.on("message", message);
     socket.on("rooms", updateRooms);
+    socket.on("typing", handleTyping);
 
     return () => {
       socket.off("connect", connect);
       socket.off("disconnect", disconnect);
       socket.off("message", message);
       socket.off("rooms", updateRooms);
+      socket.off("typing", handleTyping);
     };
   }, []);
 
@@ -112,6 +136,9 @@ function SocketProvider({ children }: PropsWithChildren) {
         rooms,
         leaveRoom,
         setRooms,
+        typingNicknames,
+        //handleTyping,
+        socket,
       }}
     >
       {children}
