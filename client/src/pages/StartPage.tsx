@@ -1,7 +1,5 @@
 import {
-  Box,
   Button,
-  Center,
   Flex,
   Image,
   Input,
@@ -11,7 +9,6 @@ import {
 import { useNavigate } from "react-router-dom";
 import { useSocket } from "../context/SocketContext";
 import LogoBox from "../components/LogoBox";
-import Header from "../components/Header";
 
 function StartPage() {
   const { handleSetNickname, setNickname, nickname } = useSocket();
@@ -39,7 +36,9 @@ function StartPage() {
     >
       {isMobile && <LogoBox />}
 
-      <Text mb={2}>Enter a nickname</Text>
+      <Text mb={2} mt={{ base: 6, md: 0 }}>
+        Enter a nickname
+      </Text>
       <Input
         placeholder='Nickname'
         value={nickname}
@@ -63,7 +62,6 @@ function StartPage() {
         Let's Chat!
       </Button>
 
-      {!isMobile && <Header />}
       {!isMobile && (
         <Image src='/assets/city.svg' pos='absolute' bottom={0} right={0} />
       )}
