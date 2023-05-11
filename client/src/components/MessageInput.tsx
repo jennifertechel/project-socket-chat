@@ -1,11 +1,13 @@
 import { Button, Flex, FormControl, Input } from "@chakra-ui/react";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Form } from "react-router-dom";
 import { useSocket } from "../context/SocketContext";
 
 export default function MessageInput() {
   const [message, setMessage] = useState("");
-  const { sendMessage, setIsTyping } = useSocket();
+  const { sendMessage, socket } = useSocket();
+  const timerRef = useRef<NodeJS.Timeout>();
+  const [isTyping, setIsTyping] = useState(false);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -15,14 +17,23 @@ export default function MessageInput() {
     }
   };
 
-  const handleTyping = (isTyping: boolean) => {
-    setIsTyping(isTyping);
+  const handleTyping = () => {
+    if (!isTyping) {
+      // Första knapptycket
+      setIsTyping(true);
+      socket.emit("typing", true);
+    }
+
+    clearTimeout(timerRef.current);
+    timerRef.current = setTimeout(() => {
+      setIsTyping(false);
+      socket.emit("typing", false);
+    }, 5000);
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setMessage(e.target.value);
-    const isTyping = e.target.value !== "";
-    handleTyping(isTyping);
+    handleTyping();
   };
 
   return (

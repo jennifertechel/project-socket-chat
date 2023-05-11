@@ -13,6 +13,7 @@ import {
 } from "../../../server/src/communication";
 
 interface ContextValues {
+  socket: Socket;
   nickname: string;
   setNickname: React.Dispatch<React.SetStateAction<string>>;
   handleSetNickname: () => void;
@@ -25,8 +26,8 @@ interface ContextValues {
   setRooms: React.Dispatch<React.SetStateAction<string[]>>;
   isTyping: boolean;
   setIsTyping: React.Dispatch<React.SetStateAction<boolean>>;
-  typingNickname: string;
-  handleTyping: (typingNickname: string, isTyping: boolean) => void;
+  typingNicknames: string[];
+  // handleTyping: (typingNickname: string, isTyping: boolean) => void;
 }
 
 const SocketContext = createContext<ContextValues>(null as any);
@@ -40,7 +41,7 @@ function SocketProvider({ children }: PropsWithChildren) {
   const [rooms, setRooms] = useState<string[]>([]);
   const [messages, setMessages] = useState<Message[]>([]);
   const [isTyping, setIsTyping] = useState(false);
-  const [typingNickname, setTypingNickname] = useState<string>("");
+  const [typingNicknames, setTypingNicknames] = useState<string[]>([]);
 
   const leaveRoom = () => {
     if (room !== undefined) {
@@ -59,12 +60,12 @@ function SocketProvider({ children }: PropsWithChildren) {
     socket.emit("nickname", nickname);
   };
 
-  const handleTyping = (typingNickname: string, isTyping: boolean) => {
-    if (typingNickname !== nickname) {
-      setIsTyping(isTyping);
-      setTypingNickname(typingNickname); // Update the typing nickname
-    }
-  };
+  //const handleTyping = (nickname: string, isTyping: boolean) => {
+  //if (nickname !== typingNicknames) {
+  //setIsTyping(isTyping);
+  //setTypingNicknames(nickname); // Update the typing nickname
+  //}
+  //};
 
   useEffect(() => {
     socket.on("nickname", (nickname: string) => {
@@ -100,9 +101,14 @@ function SocketProvider({ children }: PropsWithChildren) {
     }
 
     function typing(nickname: string, isTyping: boolean) {
-      if (nickname !== nickname) {
-        setIsTyping(isTyping);
+      if (!isTyping) {
+        // filter
+        setTypingNicknames((prev) => prev.filter((name) => name !== nickname)); // Filter out the nickname if not typing
+      } else {
+        setTypingNicknames((prev) => [...prev, nickname]); // Update the typing nickname
+        console.log("Adding nickname:", nickname); // Log the added nickname
       }
+      console.log("typingNicknames:", typingNicknames); // Log the updated typingNicknames array
     }
 
     socket.on("connect", connect);
@@ -135,8 +141,9 @@ function SocketProvider({ children }: PropsWithChildren) {
         setRooms,
         isTyping,
         setIsTyping,
-        typingNickname,
-        handleTyping,
+        typingNicknames,
+        //handleTyping,
+        socket,
       }}
     >
       {children}

@@ -14,7 +14,7 @@ import { useSocket } from "../context/SocketContext";
 
 function RoomChat() {
   const { roomId } = useParams();
-  const { leaveRoom, setRooms, isTyping, typingNickname } = useSocket();
+  const { leaveRoom, setRooms, typingNicknames } = useSocket();
   const navigate = useNavigate();
 
   function handleSubmit() {
@@ -52,8 +52,11 @@ function RoomChat() {
         </Text>
       </Box>
       <MessageBox />
-      {isTyping && <Text>{typingNickname} is typing...</Text>}
-
+      {typingNicknames.map((nickname) => (
+        <Text fontSize='small' key={nickname}>
+          {nickname} is typing...
+        </Text>
+      ))}
       <MessageInput />
       <Box p='10px'>
         <Button

@@ -4,22 +4,22 @@ import { Link } from "react-router-dom";
 function Header() {
   return (
     <Flex
-      pos="fixed"
+      pos='fixed'
       top={0}
-      w="100vw"
-      justifyContent="space-evenly"
-      alignItems="center"
+      w='100vw'
+      justifyContent='space-evenly'
+      alignItems='center'
       h={20}
-      borderBottom="1px solid lightgrey"
+      borderBottom='1px solid lightgrey'
       bg={"white"}
     >
       <Box>
-        <Link to="/home">
+        <Link to='/'>
           <Heading
-            fontFamily="Luckiest Guy"
-            color="brand.900"
+            fontFamily='Luckiest Guy'
+            color='brand.900'
             fontSize={46}
-            mr="500px"
+            mr='500px'
             mt={4}
           >
             Chatropolis
@@ -27,10 +27,10 @@ function Header() {
         </Link>
       </Box>
       <Box>
-        <Link to="/home">Home</Link>
+        <Link to='/home'>Home</Link>
       </Box>
       <Box>
-        <Link to="/room">Room</Link>
+        <Link to='/room'>Room</Link>
       </Box>
     </Flex>
   );
