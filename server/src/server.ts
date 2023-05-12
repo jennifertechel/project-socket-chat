@@ -16,6 +16,9 @@ const io = new Server<
 io.on("connection", (socket) => {
   console.log("a user connected");
 
+  // When a new user connects send the list of rooms
+  socket.emit("rooms", getRooms());
+
   socket.on("typing", (isTyping: boolean) => {
     const { room, nickname } = socket.data;
     if (!room || !nickname) return;
@@ -47,42 +50,18 @@ io.on("connection", (socket) => {
 
   socket.on("leave", (room) => {
     socket.leave(room);
+
     socket.data.room = undefined;
 
-    io.to(room).emit("rooms", getRooms());
-
-    // When a user leaves a room, check if the room is empty
-    const roomIsEmpty = io.sockets.adapter.rooms.get(room)?.size === 0;
-
-    if (roomIsEmpty) {
-      io.sockets.adapter.rooms.delete(room);
-
-      // Send an updated list of rooms to everyone
-      io.emit("rooms", getRooms());
-    }
+    io.emit("rooms", getRooms());
   });
-
-  // When a new user connects send the list of rooms
-  socket.emit("rooms", getRooms());
 
   socket.on("disconnect", () => {
     // Get the nickname from the socket object's data property
     const nickname = socket.data.nickname;
     console.log(`User ${nickname} disconnected`);
 
-    socket.on("leave", (room) => {
-      socket.leave(room);
-
-      // When a user leaves a room, check if the room is empty
-      const roomIsEmpty = io.sockets.adapter.rooms.get(room)?.size === 0;
-
-      if (roomIsEmpty) {
-        io.sockets.adapter.rooms.delete(room);
-
-        // Send an updated list of rooms to everyone
-        io.emit("rooms", getRooms());
-      }
-    });
+    io.emit("rooms", getRooms());
   });
 });
 
