@@ -1,7 +1,5 @@
 import {
-  Box,
   Button,
-  Center,
   Flex,
   Image,
   Input,
@@ -11,14 +9,9 @@ import {
 import { useNavigate } from "react-router-dom";
 import { useSocket } from "../context/SocketContext";
 import LogoBox from "../components/LogoBox";
-import Header from "../components/Header";
-import { CirclePicker } from "react-color";
-import { useState } from "react";
 
 function StartPage() {
   const { handleSetNickname, setNickname, nickname } = useSocket();
-  const [selectedColor, setSelectedColor] = useState("#000000"); // Default color
-  const customColors = ["#9AB2AB", "#D59E9E", "#719CB8", "#F1D4AE", "#B1D3E4"];
 
   const navigate = useNavigate();
 
@@ -30,10 +23,6 @@ function StartPage() {
   function handleNicknameChange(event: React.ChangeEvent<HTMLInputElement>) {
     setNickname(event.target.value);
   }
-
-  const handleColorChange = (color: any) => {
-    setSelectedColor(color.hex);
-  };
 
   const [isMobile] = useMediaQuery("(max-width: 768px)");
 
@@ -47,7 +36,9 @@ function StartPage() {
     >
       {isMobile && <LogoBox />}
 
-      <Text mb={2}>Pick a nickname and choose a color</Text>
+      <Text mb={2} mt={{ base: 6, md: 0 }}>
+        Enter a nickname
+      </Text>
       <Input
         placeholder='Nickname'
         value={nickname}
@@ -56,13 +47,6 @@ function StartPage() {
         width='auto'
         textAlign='center'
       ></Input>
-      <Flex alignContent='center' justifyContent='center' mt={4} ml={10}>
-        <CirclePicker
-          color={selectedColor}
-          onChange={handleColorChange}
-          colors={customColors}
-        />
-      </Flex>
       <Button
         mt='20px'
         bg='none'
@@ -78,7 +62,6 @@ function StartPage() {
         Let's Chat!
       </Button>
 
-      {!isMobile && <Header />}
       {!isMobile && (
         <Image src='/assets/city.svg' pos='absolute' bottom={0} right={0} />
       )}

@@ -1,17 +1,7 @@
-import {
-  Button,
-  Center,
-  Container,
-  Flex,
-  Image,
-  Text,
-  useBreakpointValue,
-  useMediaQuery,
-} from "@chakra-ui/react";
+import { Button, Flex, Image, Text, useMediaQuery } from "@chakra-ui/react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
-import Header from "../components/Header";
 import LogoBox from "../components/LogoBox";
 import ActiveRoomsModal from "../components/ActiveRooms";
 

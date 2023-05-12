@@ -1,26 +1,10 @@
-import {
-  Box,
-  Flex,
-  Heading,
-  Image,
-  Text,
-  useBreakpointValue,
-  useMediaQuery,
-} from "@chakra-ui/react";
+import { Flex, Heading, Image, Text, useMediaQuery } from "@chakra-ui/react";
 import Footer from "../components/Footer";
 import { useSocket } from "../context/SocketContext";
-import Header from "../components/Header";
 import LogoBox from "../components/LogoBox";
 
 function HomePage() {
   const { nickname } = useSocket();
-
-  const boxSize = useBreakpointValue({
-    base: "sm",
-    md: "md",
-    lg: "lg",
-    xl: "2xl",
-  });
 
   const [isMobile] = useMediaQuery("(max-width: 768px)");
 

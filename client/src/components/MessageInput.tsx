@@ -19,7 +19,6 @@ export default function MessageInput() {
 
   const handleTyping = () => {
     if (!isTyping) {
-      // Första knapptycket
       setIsTyping(true);
       socket.emit("typing", true);
     }
